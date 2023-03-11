@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e0ff94cfd234a928bb2109e70e91c73" Name="Diagram1">
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblcenter_details" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblcity" Width="1.5" PointX="1.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblcourse_fees" Width="1.5" PointX="9" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblcourse_modules" Width="1.5" PointX="14" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tbldesignation" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblemployee_details" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblexam_level" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblfee_modes" Width="1.5" PointX="6.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblgender" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tbllead_sources" Width="1.5" PointX="8.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tbllocation" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblmodule_topic" Width="1.5" PointX="14" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblqualification" Width="1.5" PointX="3.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblspecialization" Width="1.5" PointX="6" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblstate" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblstudent_details" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblstudent_payment_details" Width="1.5" PointX="13.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblstudent_qualifications" Width="1.5" PointX="8.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tblstudent_registration_details" Width="1.5" PointX="11.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tbltechnology" Width="1.5" PointX="4.5" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tbltopiccontent" Width="1.5" PointX="14" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tbltraining_modules" Width="1.5" PointX="11.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tbltraining_topics" Width="1.5" PointX="11.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP_ProjectDBModel.tbltrainingcours" Width="1.5" PointX="6.75" PointY="19.25" IsExpanded="true" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_center" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_center1" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fkcity_id" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fkstate_id" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_coursefee" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fkcourse_id" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fkfeemode" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fkcourseid" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fkmoduleid" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_designation" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_location2" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_location1" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fkmodule_id" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fktopic_id" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fkqualification_id" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_specialization" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_student" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_student1" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_registration" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fk_course" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fktid" ManuallyRouted="false" />
+        <AssociationConnector Association="ERP_ProjectDBModel.fktopicid" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

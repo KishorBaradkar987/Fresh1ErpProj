@@ -1,0 +1,1093 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ERP_ProjectDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblcities">
+          <Key>
+            <PropertyRef Name="city_id" />
+          </Key>
+          <Property Name="city_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="city_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="state_id" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblcourse_fees">
+          <Key>
+            <PropertyRef Name="course_fee_id" />
+          </Key>
+          <Property Name="course_fee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_id" Type="int" />
+          <Property Name="fee_mode_id" Type="int" />
+          <Property Name="amount" Type="float" />
+          <Property Name="tax" Type="float" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblcourse_modules">
+          <Key>
+            <PropertyRef Name="course_module_id" />
+          </Key>
+          <Property Name="course_module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_id" Type="int" />
+          <Property Name="module_id" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbldesignations">
+          <Key>
+            <PropertyRef Name="designation_id" />
+          </Key>
+          <Property Name="designation_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="designation_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblexam_level">
+          <Key>
+            <PropertyRef Name="level_id" />
+          </Key>
+          <Property Name="level_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="level_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblfee_modes">
+          <Key>
+            <PropertyRef Name="fee_mode_id" />
+          </Key>
+          <Property Name="fee_mode_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fee_mode" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblgenders">
+          <Key>
+            <PropertyRef Name="gender_id" />
+          </Key>
+          <Property Name="gender_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gender_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbllead_sources">
+          <Key>
+            <PropertyRef Name="source_id" />
+          </Key>
+          <Property Name="source_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="source_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbllocations">
+          <Key>
+            <PropertyRef Name="location_id" />
+          </Key>
+          <Property Name="location_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="location_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="city_id" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblmodule_topic">
+          <Key>
+            <PropertyRef Name="module_topic_id" />
+          </Key>
+          <Property Name="module_topic_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="module_id" Type="int" />
+          <Property Name="topic_id" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblqualifications">
+          <Key>
+            <PropertyRef Name="qualification_id" />
+          </Key>
+          <Property Name="qualification_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qualification_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblspecializations">
+          <Key>
+            <PropertyRef Name="specialization_id" />
+          </Key>
+          <Property Name="specialization_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="specialization_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="qualification_id" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tblstates">
+          <Key>
+            <PropertyRef Name="state_id" />
+          </Key>
+          <Property Name="state_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="state_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbltechnologies">
+          <Key>
+            <PropertyRef Name="technology_id" />
+          </Key>
+          <Property Name="technology_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="technology_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbltopiccontents">
+          <Key>
+            <PropertyRef Name="content_id" />
+          </Key>
+          <Property Name="content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="topic_id" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbltraining_modules">
+          <Key>
+            <PropertyRef Name="module_id" />
+          </Key>
+          <Property Name="module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="module_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbltraining_topics">
+          <Key>
+            <PropertyRef Name="topic_id" />
+          </Key>
+          <Property Name="topic_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="topic_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbltrainingcourses">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="course_code" Type="varchar" MaxLength="100" />
+          <Property Name="technology_id" Type="int" />
+          <Property Name="flag" Type="int" />
+        </EntityType>
+        <Association Name="fkcity_id">
+          <End Role="tblcities" Type="Self.tblcities" Multiplicity="0..1" />
+          <End Role="tbllocations" Type="Self.tbllocations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcities">
+              <PropertyRef Name="city_id" />
+            </Principal>
+            <Dependent Role="tbllocations">
+              <PropertyRef Name="city_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkcourse_id">
+          <End Role="tbltrainingcourses" Type="Self.tbltrainingcourses" Multiplicity="0..1" />
+          <End Role="tblcourse_fees" Type="Self.tblcourse_fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltrainingcourses">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="tblcourse_fees">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkcourseid">
+          <End Role="tbltrainingcourses" Type="Self.tbltrainingcourses" Multiplicity="0..1" />
+          <End Role="tblcourse_modules" Type="Self.tblcourse_modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltrainingcourses">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="tblcourse_modules">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkfeemode">
+          <End Role="tblfee_modes" Type="Self.tblfee_modes" Multiplicity="0..1" />
+          <End Role="tblcourse_fees" Type="Self.tblcourse_fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblfee_modes">
+              <PropertyRef Name="fee_mode_id" />
+            </Principal>
+            <Dependent Role="tblcourse_fees">
+              <PropertyRef Name="fee_mode_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkmodule_id">
+          <End Role="tbltraining_modules" Type="Self.tbltraining_modules" Multiplicity="0..1" />
+          <End Role="tblmodule_topic" Type="Self.tblmodule_topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltraining_modules">
+              <PropertyRef Name="module_id" />
+            </Principal>
+            <Dependent Role="tblmodule_topic">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkmoduleid">
+          <End Role="tbltraining_modules" Type="Self.tbltraining_modules" Multiplicity="0..1" />
+          <End Role="tblcourse_modules" Type="Self.tblcourse_modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltraining_modules">
+              <PropertyRef Name="module_id" />
+            </Principal>
+            <Dependent Role="tblcourse_modules">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkqualification_id">
+          <End Role="tblqualifications" Type="Self.tblqualifications" Multiplicity="0..1" />
+          <End Role="tblspecializations" Type="Self.tblspecializations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblqualifications">
+              <PropertyRef Name="qualification_id" />
+            </Principal>
+            <Dependent Role="tblspecializations">
+              <PropertyRef Name="qualification_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkstate_id">
+          <End Role="tblstates" Type="Self.tblstates" Multiplicity="0..1" />
+          <End Role="tblcities" Type="Self.tblcities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstates">
+              <PropertyRef Name="state_id" />
+            </Principal>
+            <Dependent Role="tblcities">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fktid">
+          <End Role="tbltechnologies" Type="Self.tbltechnologies" Multiplicity="0..1" />
+          <End Role="tbltrainingcourses" Type="Self.tbltrainingcourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltechnologies">
+              <PropertyRef Name="technology_id" />
+            </Principal>
+            <Dependent Role="tbltrainingcourses">
+              <PropertyRef Name="technology_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fktopic_id">
+          <End Role="tbltraining_topics" Type="Self.tbltraining_topics" Multiplicity="0..1" />
+          <End Role="tblmodule_topic" Type="Self.tblmodule_topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltraining_topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="tblmodule_topic">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fktopicid">
+          <End Role="tbltraining_topics" Type="Self.tbltraining_topics" Multiplicity="0..1" />
+          <End Role="tbltopiccontents" Type="Self.tbltopiccontents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltraining_topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="tbltopiccontents">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_fetch_tblcities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="city_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblcourse_fees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="course_fee_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblcourse_modules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="course_module_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tbldesignations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="designation_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblexam_level" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="level_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblfee_modes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fee_mode_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblgenders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="gender_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tbllead_sources" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="source_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tbllocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="location_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblmodule_topic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="module_topic_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblqualifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="qualification_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblspecializations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="specialization_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tblstates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="state_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tbltechnologies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="technology_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tbltopiccontents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="content_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tbltraining_modules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="module_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tbltraining_topics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="topic_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_fetch_tbltrainingcourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="course_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_tblcities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="city_id" Type="int" Mode="In" />
+          <Parameter Name="city_name" Type="varchar" Mode="In" />
+          <Parameter Name="state_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_tblcourse_fees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="course_fee_id" Type="int" Mode="In" />
+          <Parameter Name="course_id" Type="int" Mode="In" />
+          <Parameter Name="fee_mode_id" Type="int" Mode="In" />
+          <Parameter Name="amount" Type="float" Mode="In" />
+          <Parameter Name="tax" Type="float" Mode="In" />
+        </Function>
+        <Function Name="sp_tblcourse_modules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="course_module_id" Type="int" Mode="In" />
+          <Parameter Name="course_id" Type="int" Mode="In" />
+          <Parameter Name="module_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_tbldesignations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="designation_id" Type="int" Mode="In" />
+          <Parameter Name="designation_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tblexam_levels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="level_id" Type="int" Mode="In" />
+          <Parameter Name="level_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tblfee_modes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="fee_mode_id" Type="int" Mode="In" />
+          <Parameter Name="fee_mode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tblgenders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="gender_id" Type="int" Mode="In" />
+          <Parameter Name="gender_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tbllead_sources" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="source_id" Type="int" Mode="In" />
+          <Parameter Name="source_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tbllocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="location_id" Type="int" Mode="In" />
+          <Parameter Name="location_name" Type="varchar" Mode="In" />
+          <Parameter Name="city_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_tblmodule_topic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="module_topic_id" Type="int" Mode="In" />
+          <Parameter Name="module_id" Type="int" Mode="In" />
+          <Parameter Name="topic_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_tblqualifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="qualification_id" Type="int" Mode="In" />
+          <Parameter Name="qualification_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tblspecialization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="specialization_id" Type="int" Mode="In" />
+          <Parameter Name="specialization_name" Type="varchar" Mode="In" />
+          <Parameter Name="qualification_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_tblstates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="state_id" Type="int" Mode="In" />
+          <Parameter Name="state_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tbltechnologies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="technology_id" Type="int" Mode="In" />
+          <Parameter Name="technology_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tbltopiccontent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="content_id" Type="int" Mode="In" />
+          <Parameter Name="content_name" Type="varchar" Mode="In" />
+          <Parameter Name="topic_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_tbltraining_modules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="module_id" Type="int" Mode="In" />
+          <Parameter Name="module_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tbltrainingcourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="course_id" Type="int" Mode="In" />
+          <Parameter Name="course_name" Type="varchar" Mode="In" />
+          <Parameter Name="course_code" Type="varchar" Mode="In" />
+          <Parameter Name="technology_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_trainingtopics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="topic_id" Type="int" Mode="In" />
+          <Parameter Name="topic_name" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ERP_ProjectDBModelStoreContainer">
+          <EntitySet Name="tblcities" EntityType="Self.tblcities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcourse_fees" EntityType="Self.tblcourse_fees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcourse_modules" EntityType="Self.tblcourse_modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldesignations" EntityType="Self.tbldesignations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblexam_level" EntityType="Self.tblexam_level" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblfee_modes" EntityType="Self.tblfee_modes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblgenders" EntityType="Self.tblgenders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbllead_sources" EntityType="Self.tbllead_sources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbllocations" EntityType="Self.tbllocations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblmodule_topic" EntityType="Self.tblmodule_topic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblqualifications" EntityType="Self.tblqualifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblspecializations" EntityType="Self.tblspecializations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblstates" EntityType="Self.tblstates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltechnologies" EntityType="Self.tbltechnologies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltopiccontents" EntityType="Self.tbltopiccontents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltraining_modules" EntityType="Self.tbltraining_modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltraining_topics" EntityType="Self.tbltraining_topics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltrainingcourses" EntityType="Self.tbltrainingcourses" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fkcity_id" Association="Self.fkcity_id">
+            <End Role="tblcities" EntitySet="tblcities" />
+            <End Role="tbllocations" EntitySet="tbllocations" />
+          </AssociationSet>
+          <AssociationSet Name="fkcourse_id" Association="Self.fkcourse_id">
+            <End Role="tbltrainingcourses" EntitySet="tbltrainingcourses" />
+            <End Role="tblcourse_fees" EntitySet="tblcourse_fees" />
+          </AssociationSet>
+          <AssociationSet Name="fkcourseid" Association="Self.fkcourseid">
+            <End Role="tbltrainingcourses" EntitySet="tbltrainingcourses" />
+            <End Role="tblcourse_modules" EntitySet="tblcourse_modules" />
+          </AssociationSet>
+          <AssociationSet Name="fkfeemode" Association="Self.fkfeemode">
+            <End Role="tblfee_modes" EntitySet="tblfee_modes" />
+            <End Role="tblcourse_fees" EntitySet="tblcourse_fees" />
+          </AssociationSet>
+          <AssociationSet Name="fkmodule_id" Association="Self.fkmodule_id">
+            <End Role="tbltraining_modules" EntitySet="tbltraining_modules" />
+            <End Role="tblmodule_topic" EntitySet="tblmodule_topic" />
+          </AssociationSet>
+          <AssociationSet Name="fkmoduleid" Association="Self.fkmoduleid">
+            <End Role="tbltraining_modules" EntitySet="tbltraining_modules" />
+            <End Role="tblcourse_modules" EntitySet="tblcourse_modules" />
+          </AssociationSet>
+          <AssociationSet Name="fkqualification_id" Association="Self.fkqualification_id">
+            <End Role="tblqualifications" EntitySet="tblqualifications" />
+            <End Role="tblspecializations" EntitySet="tblspecializations" />
+          </AssociationSet>
+          <AssociationSet Name="fkstate_id" Association="Self.fkstate_id">
+            <End Role="tblstates" EntitySet="tblstates" />
+            <End Role="tblcities" EntitySet="tblcities" />
+          </AssociationSet>
+          <AssociationSet Name="fktid" Association="Self.fktid">
+            <End Role="tbltechnologies" EntitySet="tbltechnologies" />
+            <End Role="tbltrainingcourses" EntitySet="tbltrainingcourses" />
+          </AssociationSet>
+          <AssociationSet Name="fktopic_id" Association="Self.fktopic_id">
+            <End Role="tbltraining_topics" EntitySet="tbltraining_topics" />
+            <End Role="tblmodule_topic" EntitySet="tblmodule_topic" />
+          </AssociationSet>
+          <AssociationSet Name="fktopicid" Association="Self.fktopicid">
+            <End Role="tbltraining_topics" EntitySet="tbltraining_topics" />
+            <End Role="tbltopiccontents" EntitySet="tbltopiccontents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ERP_ProjectDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblcity">
+          <Key>
+            <PropertyRef Name="city_id" />
+          </Key>
+          <Property Name="city_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="city_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="state_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tbllocations" Relationship="Self.fkcity_id" FromRole="tblcities" ToRole="tbllocations" />
+          <NavigationProperty Name="tblstate" Relationship="Self.fkstate_id" FromRole="tblcities" ToRole="tblstates" />
+        </EntityType>
+        <EntityType Name="tblcourse_fees">
+          <Key>
+            <PropertyRef Name="course_fee_id" />
+          </Key>
+          <Property Name="course_fee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_id" Type="Int32" />
+          <Property Name="fee_mode_id" Type="Int32" />
+          <Property Name="amount" Type="Double" />
+          <Property Name="tax" Type="Double" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tbltrainingcours" Relationship="Self.fkcourse_id" FromRole="tblcourse_fees" ToRole="tbltrainingcourses" />
+          <NavigationProperty Name="tblfee_modes" Relationship="Self.fkfeemode" FromRole="tblcourse_fees" ToRole="tblfee_modes" />
+        </EntityType>
+        <EntityType Name="tblcourse_modules">
+          <Key>
+            <PropertyRef Name="course_module_id" />
+          </Key>
+          <Property Name="course_module_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_id" Type="Int32" />
+          <Property Name="module_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tbltrainingcours" Relationship="Self.fkcourseid" FromRole="tblcourse_modules" ToRole="tbltrainingcourses" />
+          <NavigationProperty Name="tbltraining_modules" Relationship="Self.fkmoduleid" FromRole="tblcourse_modules" ToRole="tbltraining_modules" />
+        </EntityType>
+        <EntityType Name="tbldesignation">
+          <Key>
+            <PropertyRef Name="designation_id" />
+          </Key>
+          <Property Name="designation_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="designation_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblexam_level">
+          <Key>
+            <PropertyRef Name="level_id" />
+          </Key>
+          <Property Name="level_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="level_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblfee_modes">
+          <Key>
+            <PropertyRef Name="fee_mode_id" />
+          </Key>
+          <Property Name="fee_mode_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fee_mode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblcourse_fees" Relationship="Self.fkfeemode" FromRole="tblfee_modes" ToRole="tblcourse_fees" />
+        </EntityType>
+        <EntityType Name="tblgender">
+          <Key>
+            <PropertyRef Name="gender_id" />
+          </Key>
+          <Property Name="gender_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gender_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbllead_sources">
+          <Key>
+            <PropertyRef Name="source_id" />
+          </Key>
+          <Property Name="source_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="source_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbllocation">
+          <Key>
+            <PropertyRef Name="location_id" />
+          </Key>
+          <Property Name="location_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="location_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblcity" Relationship="Self.fkcity_id" FromRole="tbllocations" ToRole="tblcities" />
+        </EntityType>
+        <EntityType Name="tblmodule_topic">
+          <Key>
+            <PropertyRef Name="module_topic_id" />
+          </Key>
+          <Property Name="module_topic_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_id" Type="Int32" />
+          <Property Name="topic_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tbltraining_modules" Relationship="Self.fkmodule_id" FromRole="tblmodule_topic" ToRole="tbltraining_modules" />
+          <NavigationProperty Name="tbltraining_topics" Relationship="Self.fktopic_id" FromRole="tblmodule_topic" ToRole="tbltraining_topics" />
+        </EntityType>
+        <EntityType Name="tblqualification">
+          <Key>
+            <PropertyRef Name="qualification_id" />
+          </Key>
+          <Property Name="qualification_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qualification_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblspecializations" Relationship="Self.fkqualification_id" FromRole="tblqualifications" ToRole="tblspecializations" />
+        </EntityType>
+        <EntityType Name="tblspecialization">
+          <Key>
+            <PropertyRef Name="specialization_id" />
+          </Key>
+          <Property Name="specialization_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="specialization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="qualification_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblqualification" Relationship="Self.fkqualification_id" FromRole="tblspecializations" ToRole="tblqualifications" />
+        </EntityType>
+        <EntityType Name="tblstate">
+          <Key>
+            <PropertyRef Name="state_id" />
+          </Key>
+          <Property Name="state_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="state_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblcities" Relationship="Self.fkstate_id" FromRole="tblstates" ToRole="tblcities" />
+        </EntityType>
+        <EntityType Name="tbltechnology">
+          <Key>
+            <PropertyRef Name="technology_id" />
+          </Key>
+          <Property Name="technology_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="technology_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tbltrainingcourses" Relationship="Self.fktid" FromRole="tbltechnologies" ToRole="tbltrainingcourses" />
+        </EntityType>
+        <EntityType Name="tbltopiccontent">
+          <Key>
+            <PropertyRef Name="content_id" />
+          </Key>
+          <Property Name="content_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="topic_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tbltraining_topics" Relationship="Self.fktopicid" FromRole="tbltopiccontents" ToRole="tbltraining_topics" />
+        </EntityType>
+        <EntityType Name="tbltraining_modules">
+          <Key>
+            <PropertyRef Name="module_id" />
+          </Key>
+          <Property Name="module_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblcourse_modules" Relationship="Self.fkmoduleid" FromRole="tbltraining_modules" ToRole="tblcourse_modules" />
+          <NavigationProperty Name="tblmodule_topic" Relationship="Self.fkmodule_id" FromRole="tbltraining_modules" ToRole="tblmodule_topic" />
+        </EntityType>
+        <EntityType Name="tbltraining_topics">
+          <Key>
+            <PropertyRef Name="topic_id" />
+          </Key>
+          <Property Name="topic_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="topic_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblmodule_topic" Relationship="Self.fktopic_id" FromRole="tbltraining_topics" ToRole="tblmodule_topic" />
+          <NavigationProperty Name="tbltopiccontents" Relationship="Self.fktopicid" FromRole="tbltraining_topics" ToRole="tbltopiccontents" />
+        </EntityType>
+        <EntityType Name="tbltrainingcours">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="course_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="technology_id" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <NavigationProperty Name="tblcourse_fees" Relationship="Self.fkcourse_id" FromRole="tbltrainingcourses" ToRole="tblcourse_fees" />
+          <NavigationProperty Name="tblcourse_modules" Relationship="Self.fkcourseid" FromRole="tbltrainingcourses" ToRole="tblcourse_modules" />
+          <NavigationProperty Name="tbltechnology" Relationship="Self.fktid" FromRole="tbltrainingcourses" ToRole="tbltechnologies" />
+        </EntityType>
+        <Association Name="fkcity_id">
+          <End Role="tblcities" Type="Self.tblcity" Multiplicity="0..1" />
+          <End Role="tbllocations" Type="Self.tbllocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcities">
+              <PropertyRef Name="city_id" />
+            </Principal>
+            <Dependent Role="tbllocations">
+              <PropertyRef Name="city_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkstate_id">
+          <End Role="tblstates" Type="Self.tblstate" Multiplicity="0..1" />
+          <End Role="tblcities" Type="Self.tblcity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblstates">
+              <PropertyRef Name="state_id" />
+            </Principal>
+            <Dependent Role="tblcities">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkcourse_id">
+          <End Role="tbltrainingcourses" Type="Self.tbltrainingcours" Multiplicity="0..1" />
+          <End Role="tblcourse_fees" Type="Self.tblcourse_fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltrainingcourses">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="tblcourse_fees">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkfeemode">
+          <End Role="tblfee_modes" Type="Self.tblfee_modes" Multiplicity="0..1" />
+          <End Role="tblcourse_fees" Type="Self.tblcourse_fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblfee_modes">
+              <PropertyRef Name="fee_mode_id" />
+            </Principal>
+            <Dependent Role="tblcourse_fees">
+              <PropertyRef Name="fee_mode_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkcourseid">
+          <End Role="tbltrainingcourses" Type="Self.tbltrainingcours" Multiplicity="0..1" />
+          <End Role="tblcourse_modules" Type="Self.tblcourse_modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltrainingcourses">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="tblcourse_modules">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkmoduleid">
+          <End Role="tbltraining_modules" Type="Self.tbltraining_modules" Multiplicity="0..1" />
+          <End Role="tblcourse_modules" Type="Self.tblcourse_modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltraining_modules">
+              <PropertyRef Name="module_id" />
+            </Principal>
+            <Dependent Role="tblcourse_modules">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkmodule_id">
+          <End Role="tbltraining_modules" Type="Self.tbltraining_modules" Multiplicity="0..1" />
+          <End Role="tblmodule_topic" Type="Self.tblmodule_topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltraining_modules">
+              <PropertyRef Name="module_id" />
+            </Principal>
+            <Dependent Role="tblmodule_topic">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fktopic_id">
+          <End Role="tbltraining_topics" Type="Self.tbltraining_topics" Multiplicity="0..1" />
+          <End Role="tblmodule_topic" Type="Self.tblmodule_topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltraining_topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="tblmodule_topic">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkqualification_id">
+          <End Role="tblqualifications" Type="Self.tblqualification" Multiplicity="0..1" />
+          <End Role="tblspecializations" Type="Self.tblspecialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblqualifications">
+              <PropertyRef Name="qualification_id" />
+            </Principal>
+            <Dependent Role="tblspecializations">
+              <PropertyRef Name="qualification_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fktid">
+          <End Role="tbltechnologies" Type="Self.tbltechnology" Multiplicity="0..1" />
+          <End Role="tbltrainingcourses" Type="Self.tbltrainingcours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltechnologies">
+              <PropertyRef Name="technology_id" />
+            </Principal>
+            <Dependent Role="tbltrainingcourses">
+              <PropertyRef Name="technology_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fktopicid">
+          <End Role="tbltraining_topics" Type="Self.tbltraining_topics" Multiplicity="0..1" />
+          <End Role="tbltopiccontents" Type="Self.tbltopiccontent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltraining_topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="tbltopiccontents">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ERP_ProjectDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblcities" EntityType="Self.tblcity" />
+          <EntitySet Name="tblcourse_fees" EntityType="Self.tblcourse_fees" />
+          <EntitySet Name="tblcourse_modules" EntityType="Self.tblcourse_modules" />
+          <EntitySet Name="tbldesignations" EntityType="Self.tbldesignation" />
+          <EntitySet Name="tblexam_level" EntityType="Self.tblexam_level" />
+          <EntitySet Name="tblfee_modes" EntityType="Self.tblfee_modes" />
+          <EntitySet Name="tblgenders" EntityType="Self.tblgender" />
+          <EntitySet Name="tbllead_sources" EntityType="Self.tbllead_sources" />
+          <EntitySet Name="tbllocations" EntityType="Self.tbllocation" />
+          <EntitySet Name="tblmodule_topic" EntityType="Self.tblmodule_topic" />
+          <EntitySet Name="tblqualifications" EntityType="Self.tblqualification" />
+          <EntitySet Name="tblspecializations" EntityType="Self.tblspecialization" />
+          <EntitySet Name="tblstates" EntityType="Self.tblstate" />
+          <EntitySet Name="tbltechnologies" EntityType="Self.tbltechnology" />
+          <EntitySet Name="tbltopiccontents" EntityType="Self.tbltopiccontent" />
+          <EntitySet Name="tbltraining_modules" EntityType="Self.tbltraining_modules" />
+          <EntitySet Name="tbltraining_topics" EntityType="Self.tbltraining_topics" />
+          <EntitySet Name="tbltrainingcourses" EntityType="Self.tbltrainingcours" />
+          <AssociationSet Name="fkcity_id" Association="Self.fkcity_id">
+            <End Role="tblcities" EntitySet="tblcities" />
+            <End Role="tbllocations" EntitySet="tbllocations" />
+          </AssociationSet>
+          <AssociationSet Name="fkstate_id" Association="Self.fkstate_id">
+            <End Role="tblstates" EntitySet="tblstates" />
+            <End Role="tblcities" EntitySet="tblcities" />
+          </AssociationSet>
+          <AssociationSet Name="fkcourse_id" Association="Self.fkcourse_id">
+            <End Role="tbltrainingcourses" EntitySet="tbltrainingcourses" />
+            <End Role="tblcourse_fees" EntitySet="tblcourse_fees" />
+          </AssociationSet>
+          <AssociationSet Name="fkfeemode" Association="Self.fkfeemode">
+            <End Role="tblfee_modes" EntitySet="tblfee_modes" />
+            <End Role="tblcourse_fees" EntitySet="tblcourse_fees" />
+          </AssociationSet>
+          <AssociationSet Name="fkcourseid" Association="Self.fkcourseid">
+            <End Role="tbltrainingcourses" EntitySet="tbltrainingcourses" />
+            <End Role="tblcourse_modules" EntitySet="tblcourse_modules" />
+          </AssociationSet>
+          <AssociationSet Name="fkmoduleid" Association="Self.fkmoduleid">
+            <End Role="tbltraining_modules" EntitySet="tbltraining_modules" />
+            <End Role="tblcourse_modules" EntitySet="tblcourse_modules" />
+          </AssociationSet>
+          <AssociationSet Name="fkmodule_id" Association="Self.fkmodule_id">
+            <End Role="tbltraining_modules" EntitySet="tbltraining_modules" />
+            <End Role="tblmodule_topic" EntitySet="tblmodule_topic" />
+          </AssociationSet>
+          <AssociationSet Name="fktopic_id" Association="Self.fktopic_id">
+            <End Role="tbltraining_topics" EntitySet="tbltraining_topics" />
+            <End Role="tblmodule_topic" EntitySet="tblmodule_topic" />
+          </AssociationSet>
+          <AssociationSet Name="fkqualification_id" Association="Self.fkqualification_id">
+            <End Role="tblqualifications" EntitySet="tblqualifications" />
+            <End Role="tblspecializations" EntitySet="tblspecializations" />
+          </AssociationSet>
+          <AssociationSet Name="fktid" Association="Self.fktid">
+            <End Role="tbltechnologies" EntitySet="tbltechnologies" />
+            <End Role="tbltrainingcourses" EntitySet="tbltrainingcourses" />
+          </AssociationSet>
+          <AssociationSet Name="fktopicid" Association="Self.fktopicid">
+            <End Role="tbltraining_topics" EntitySet="tbltraining_topics" />
+            <End Role="tbltopiccontents" EntitySet="tbltopiccontents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ERP_ProjectDBModelStoreContainer" CdmEntityContainer="ERP_ProjectDBEntities">
+          <EntitySetMapping Name="tblcities">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblcity">
+              <MappingFragment StoreEntitySet="tblcities">
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="city_name" ColumnName="city_name" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblcourse_fees">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblcourse_fees">
+              <MappingFragment StoreEntitySet="tblcourse_fees">
+                <ScalarProperty Name="course_fee_id" ColumnName="course_fee_id" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="fee_mode_id" ColumnName="fee_mode_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="tax" ColumnName="tax" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblcourse_modules">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblcourse_modules">
+              <MappingFragment StoreEntitySet="tblcourse_modules">
+                <ScalarProperty Name="course_module_id" ColumnName="course_module_id" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldesignations">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tbldesignation">
+              <MappingFragment StoreEntitySet="tbldesignations">
+                <ScalarProperty Name="designation_id" ColumnName="designation_id" />
+                <ScalarProperty Name="designation_name" ColumnName="designation_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblexam_level">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblexam_level">
+              <MappingFragment StoreEntitySet="tblexam_level">
+                <ScalarProperty Name="level_id" ColumnName="level_id" />
+                <ScalarProperty Name="level_name" ColumnName="level_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblfee_modes">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblfee_modes">
+              <MappingFragment StoreEntitySet="tblfee_modes">
+                <ScalarProperty Name="fee_mode_id" ColumnName="fee_mode_id" />
+                <ScalarProperty Name="fee_mode" ColumnName="fee_mode" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblgenders">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblgender">
+              <MappingFragment StoreEntitySet="tblgenders">
+                <ScalarProperty Name="gender_id" ColumnName="gender_id" />
+                <ScalarProperty Name="gender_name" ColumnName="gender_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbllead_sources">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tbllead_sources">
+              <MappingFragment StoreEntitySet="tbllead_sources">
+                <ScalarProperty Name="source_id" ColumnName="source_id" />
+                <ScalarProperty Name="source_name" ColumnName="source_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbllocations">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tbllocation">
+              <MappingFragment StoreEntitySet="tbllocations">
+                <ScalarProperty Name="location_id" ColumnName="location_id" />
+                <ScalarProperty Name="location_name" ColumnName="location_name" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmodule_topic">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblmodule_topic">
+              <MappingFragment StoreEntitySet="tblmodule_topic">
+                <ScalarProperty Name="module_topic_id" ColumnName="module_topic_id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblqualifications">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblqualification">
+              <MappingFragment StoreEntitySet="tblqualifications">
+                <ScalarProperty Name="qualification_id" ColumnName="qualification_id" />
+                <ScalarProperty Name="qualification_name" ColumnName="qualification_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblspecializations">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblspecialization">
+              <MappingFragment StoreEntitySet="tblspecializations">
+                <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
+                <ScalarProperty Name="specialization_name" ColumnName="specialization_name" />
+                <ScalarProperty Name="qualification_id" ColumnName="qualification_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblstates">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tblstate">
+              <MappingFragment StoreEntitySet="tblstates">
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="state_name" ColumnName="state_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltechnologies">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tbltechnology">
+              <MappingFragment StoreEntitySet="tbltechnologies">
+                <ScalarProperty Name="technology_id" ColumnName="technology_id" />
+                <ScalarProperty Name="technology_name" ColumnName="technology_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltopiccontents">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tbltopiccontent">
+              <MappingFragment StoreEntitySet="tbltopiccontents">
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="content_name" ColumnName="content_name" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltraining_modules">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tbltraining_modules">
+              <MappingFragment StoreEntitySet="tbltraining_modules">
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltraining_topics">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tbltraining_topics">
+              <MappingFragment StoreEntitySet="tbltraining_topics">
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="topic_name" ColumnName="topic_name" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltrainingcourses">
+            <EntityTypeMapping TypeName="ERP_ProjectDBModel.tbltrainingcours">
+              <MappingFragment StoreEntitySet="tbltrainingcourses">
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="course_code" ColumnName="course_code" />
+                <ScalarProperty Name="technology_id" ColumnName="technology_id" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

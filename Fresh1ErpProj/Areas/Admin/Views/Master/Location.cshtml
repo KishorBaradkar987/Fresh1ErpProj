@@ -1,0 +1,219 @@
+﻿
+@{
+    ViewBag.Title = "Location";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Location</h2>
+<script>
+
+    $(document).ready(function () {
+
+        ClearData();
+        FetchLocations();
+        SelectState();
+        $("#ddstate").change(function () {
+            SelectCity();
+        })
+        $("#btnaddlocation").click(function () {
+            ClearData();
+            $("#locationmodal").modal("show");
+        })
+        $("#btnsubmit").click(function () {
+            AddLocation();
+        })
+        $("#btnupdate").click(function () {
+            UpdateLocation();
+        })
+        $("#btndelete").click(function () {
+            DeleteLocation();
+        })
+        $("#btnclose").click(function () {
+            ClearData();
+        })
+    })
+    function SelectState() {
+        $.ajax({
+            url: '/api/state',
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+              $("#ddstate").empty();
+                $("#ddstate").append("<option selected disabled>Select State</option>")
+
+                $.each(resp, function (i, d) {
+                    $("#ddstate").append("<option value=" + d.state_id + ">" + d.state_name + "</option>")
+                })
+            }
+        })
+    }
+
+    function SelectCity() {
+        var id = $("#ddstate").val();
+        $.ajax({
+            url: '/api/city/'+id,
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#ddcity").empty();
+                $("#ddcity").append("<option selected disabled>Select City</option>")
+                $.each(resp, function (i, d) {
+                    $("#ddcity").append("<option value=" + d.city_id + ">" + d.city_name + "</option>")
+                })
+            }
+        })
+    }
+    function FetchLocations() {
+
+        $.ajax({
+            url: '/api/location',
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#tbldata").empty();
+                $.each(resp, function (i, d) {
+
+                    $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.state_name + "</td><td>" + d.city_name + "</td><td>" + d.location_name + "</td><td> <button type='button' class='btn' onclick='EditLocation(" + d.location_id + ")' title='Edit'><i class='far fa-edit' style='font-size:18px'></i></button><span></span><button type='button' class='btn' onclick='DeleteLocation(" + d.location_id + ")' title='Delete'><span class='glyphicon glyphicon-trash' style='font-size:18px'></span></button></td></tr>")
+                    })
+            }
+        })
+    }
+
+    function EditLocation(id) {
+        $("#locationmodal").modal("show");
+        $.ajax({
+            url: '/api/location/' + id,
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                $("#ddstate").val(resp.state_id);
+                $("#ddcity").val(resp.city_id);
+                $("#txtlocationid").val(resp.location_id);
+                $("#txtlocationname").val(resp.location_name);
+                $("#btnupdate").show();
+                $("#btnsubmit").hide();
+            }
+        })
+    }
+    function UpdateLocation() {
+       // var sid = $("#ddstate").val();
+        var cid = $("#ddcity").val();
+        var lid = $("#txtlocationid").val();
+        var l = $("#txtlocationname").val();
+        var st = { "LocationId": lid, "LocationName": l, "CityId": cid };
+        $.ajax({
+            url: '/api/location',
+            method: 'put',
+            data: st,
+            //contentType: 'application/json',
+            success: function (resp) {
+                // alert("Updated Successfully");
+                FetchLocations();
+                ClearData();
+            }
+        })
+    }
+
+    function DeleteLocation(id) {
+        $.ajax({
+            url: '/api/deletelocation/' + id,
+            method: 'delete',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchLocations();
+            }
+        })
+    }
+
+    function AddLocation() {
+        //var sid = $("#ddstate").val();
+        var cid = $("#ddcity").val();
+        var lid = $("#txtlocationid").val();
+        var l = $("#txtlocationname").val();
+        var st = { "LocationId": lid, "LocationName": l, "CityId": cid };
+        $.ajax({
+            url: '/api/location',
+            method: 'post',
+            data:st,
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchLocations();
+                ClearData();
+            }
+        })
+    }
+    function ClearData() {
+        $("#ddcity").val("");
+        $("#ddstate").val("");
+        $("#txtlocationid").val("");
+        $("#txtlocationname").val("");
+        $("#btnsubmit").show();
+        $("#btnupdate").hide();
+        $("#btndelete").hide();
+        $("#locationmodal").modal("hide");
+
+    }
+</script>
+    
+    <input type="button" value="Add Location " class="btn btn-secondary" id="btnaddlocation" />
+    <br /><br />
+
+    <div class="modal fade" id="locationmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+
+                    <h4>Location Form</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Location Id</label>
+                        <input type="text" id="txtlocationid" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <b>State</b><select id="ddstate" class="form-control">
+                            <option selected disabled>Select State</option>
+                        </select><br />
+                    </div>
+                    <div class="form-group">
+                        <b>City</b><select id="ddcity" class="form-control">
+                            <option selected disabled>Select City</option>
+                        </select><br />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location Name</label>
+                        <input type="text" id="txtlocationname" class="form-control" />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                    <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                    <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                    <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <table class="table table-bordered;table table-info">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>State</th>
+                <th>city</th>
+                <th>Location</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbldata"></tbody>
+
+    </table>

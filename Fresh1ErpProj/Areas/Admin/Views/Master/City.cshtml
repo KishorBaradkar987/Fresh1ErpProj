@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "City";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>City</h2>
+<script>
+ $(document).ready(function () {
+
+        ClearData();
+        SelectState()
+        FetchCities();
+
+        $("#btnaddcity").click(function() {
+            $("#citymodal").modal("show");
+        })
+        $("#btnsubmit").click(function () {
+            AddCity();
+        })
+        $("#btnupdate").click(function () {
+            UpdateCity();
+        })
+        $("#btndelete").click(function () {
+            DeleteCity();
+        })
+        $("#btnclose").click(function () {
+            ClearData();
+        })
+    })
+    function SelectState() {
+        $.ajax({
+            url: '/api/state',
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                $("#ddstate").empty()
+                $("#ddstate").append("<option selected disabled>Select State</option>")
+                $.each(resp, function (i, d) {
+                    $("#ddstate").append("<option value=" + d.state_id + ">" + d.state_name + "</option>")
+                })
+
+            }
+
+        })
+    }
+    function FetchCities() {
+
+        $.ajax({
+            url: '/api/city',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#tbldata").empty();
+                $.each(resp, function (i, d) {
+                    console.log(resp);
+                    $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.state_name + "</td><td>" + d.city_name +
+                        "</td><td> <button type='button' class='btn' onclick='EditCity(" + d.city_id + ")' title='Edit'><i class='far fa-edit' style='font-size:18px'></i></button><span></span><button type='button' class='btn' onclick='DeleteCity(" + d.city_id + ")' title='Delete'><span class='glyphicon glyphicon-trash' style='font-size:18px'></span></button></td></tr>")
+
+                     })
+               }
+
+        })
+    }
+    function EditCity(id) {
+        $("#citymodal").modal("show");
+        $.ajax({
+            url: '/api/city' + id,
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                $("#txtcityid").val(resp.city_id);
+                $("#txtcityname").val(resp.city_name);
+                $("#ddstate").val(resp.state_id);
+                $("#btnupdate").show();
+                $("#btnsubmit").hide();
+            }
+        })
+    }
+    function UpdateCity() {
+        var sid = $("#ddstate").val();
+        var cid = $("#txtcityid").val();
+        var s = $("#txtcityname").val();
+        var st = { "CityId": cid, "CityName": s,"StateId":sid };
+        $.ajax({
+            url: '/api/city',
+            method: 'put',
+            data: st,
+            //contentType: 'application/json',
+            success: function (resp) {
+                // alert("Updated Successfully");
+                FetchCities();
+                ClearData();
+            }
+        })
+    }
+    function DeleteCity(id) {
+        $.ajax({
+            url: '/api/deletecity/' + id,
+            method: 'delete',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchCities();
+            }
+        })
+    }
+
+    function AddCity() {
+        var sid = $("#ddstate").val();
+        var cid = $("#txtcityid").val();
+        var c = $("#txtcityname").val();
+        var st = { "city_id": cid, "city_name": c, "state_id": sid };
+        $.ajax({
+            url: '/api/city',
+            method: 'post',
+            data: st,
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchCities();
+                ClearData();
+            }
+        })
+
+    }
+    function ClearData() {
+        $("#ddstate").val("");
+        $("#txtcityid").val("");
+        $("#txtcityname").val("");
+        $("#btnsubmit").show();
+        $("#btnupdate").hide();
+        $("#btndelete").hide();
+        $("#citymodal").modal("hide");
+
+    }
+</script>
+
+<input type="button" value="Add City" class="btn btn-secondary" id="btnaddcity" />
+<br />
+<br />
+
+
+<div class="modal fade" id="citymodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+
+                <h4>City Form</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <b>State</b><select id="ddstate" class="form-control">
+                        <option>select State</option>
+                    </select><br />
+                </div>
+                <div class="form-group">
+                    <label>City Id</label>
+                    <input type="text" id="txtcityid" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label>City_Name</label>
+                    <input type="text" id="txtcityname" class="form-control" />
+                </div>
+            </div>
+            <div class="panel-footer">
+                <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table class="table table-bordered;table table-info">
+    <thead>
+        <tr>
+            <th>Sr No</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tbldata"></tbody>
+
+</table>
+
+

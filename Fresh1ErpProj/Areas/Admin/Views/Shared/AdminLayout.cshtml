@@ -1,0 +1,138 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminLayout</title>
+    <style>
+
+
+        #main {
+            font-family: 'Bookman Old Style';
+            text-align: center;
+            margin-left: 10px;
+        }
+    </style>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <style>
+        #main {
+            font-family: 'Bookman Old Style';
+            text-align: center;
+            font-size: 24px;
+        }
+        /* .nav-link {
+            margin-left: 10px;
+            margin-right: 10px;
+
+        }*/
+        ul {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" style="margin:0%;padding:0%">
+        <div class="row" style="margin:0%;padding:0%">
+            <div class="col-md-2 " style="background-color:white;height:auto">
+                <div class="d-flex flex-column flex-shrink-0  text-bg-black" style="width:auto;">
+                    <a href="/" class="d-flex align-items-center text-white text-decoration-none">
+                        <h3 id="main">
+                            Menu
+                        </h3>
+                        
+
+                    </a>
+                    <hr />
+                    <ul class="nav nav-pills flex-column ">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active" title="Dashboard">
+                                <i class='fas fa-list' style='font-size:24px'></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/State" class="nav-link text-white" title="Enquiry Form">
+                                <i class='far fa-address-book' style='font-size:24px'></i>
+                                &nbsp;State&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/City" class="nav-link text-white" title="All Enquiries">
+                                <i class="material-icons" style="font-size:24px">location_city</i>
+                                City&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/Location" class="nav-link text-white" title="Enquiry Form">
+                                <i class="material-icons" style="font-size:24px">location_on</i>
+                                Location
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/Qualifiction" class="nav-link text-white" title="Enquiry Form">
+                                <i class="fa fa-graduation-cap" style="font-size:24px"></i>
+                                Qualification
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/Specialization" class="nav-link text-white" title="Enquiry Form">
+                                <i class='fas fa-book' style='font-size:24px'></i>
+                                Specialization
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/FeeModes" class="nav-link text-white" title="Enquiry Form">
+                                <i class='far fa-file-alt' style='font-size:24px'></i>
+                                Fee Mode
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/Technology" class="nav-link text-white" title="Enquiry Form">
+                                <i class='fas fa-radiation' style='font-size:24px'></i>
+                                Technology
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/Location" class="nav-link text-white" title="Enquiry Form">
+                                <i class="material-icons" style="font-size:24px">location_on</i>
+                                Location
+                            </a>
+                        </li>
+                        <br />
+                        <li>
+                            <a href="/Admin/Master/Designation" class="nav-link text-white" title="Enquiry Form">
+                                <span class="glyphicon glyphicon-wrench"></span>
+                                Designation
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+
+                </div>
+            </div>
+            <div class="col-md-10" style="margin:0px;padding:0%;">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>

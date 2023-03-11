@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF787CB9-0AC5-4541-92B7-073E7B7F3C1C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ServicesOperations</RootNamespace>
+    <AssemblyName>ServicesOperations</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DatabaseOpworks, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DatabaseOpworks\bin\Debug\DatabaseOpworks.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DatabaseOpworks\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\DatabaseOpworks\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Implementations\Accountant\PaymentDetailService.cs" />
+    <Compile Include="Implementations\Accountant\RegistrationDetailService.cs" />
+    <Compile Include="Implementations\Accountant\StudentDetailService.cs" />
+    <Compile Include="Implementations\Accountant\StudentQualificationService.cs" />
+    <Compile Include="Implementations\Developer\CourseFeeService.cs" />
+    <Compile Include="Implementations\Developer\CourseService.cs" />
+    <Compile Include="Implementations\Master\CityService.cs" />
+    <Compile Include="Implementations\Master\DesignationService.cs" />
+    <Compile Include="Implementations\Master\ExamLevelService.cs" />
+    <Compile Include="Implementations\Master\FeeModeService.cs" />
+    <Compile Include="Implementations\Master\LocationService.cs" />
+    <Compile Include="Implementations\Master\QualificationService.cs" />
+    <Compile Include="Implementations\Master\SpecializationService.cs" />
+    <Compile Include="Implementations\Master\StateService.cs" />
+    <Compile Include="Implementations\Master\TechnologyService.cs" />
+    <Compile Include="Interface\Accountant\IPaymentDetailService.cs" />
+    <Compile Include="Interface\Accountant\IRegistrationDetailService.cs" />
+    <Compile Include="Interface\Accountant\IStudentDetailService.cs" />
+    <Compile Include="Interface\Accountant\IStudentQualificationService.cs" />
+    <Compile Include="Interface\Developer\ICourseFeeService.cs" />
+    <Compile Include="Interface\Developer\ICourseService.cs" />
+    <Compile Include="Interface\Master\ICityService.cs" />
+    <Compile Include="Interface\Master\IDesignationService.cs" />
+    <Compile Include="Interface\Master\IExamLevelService.cs" />
+    <Compile Include="Interface\Master\IFeeModeService.cs" />
+    <Compile Include="Interface\Master\ILocationService.cs" />
+    <Compile Include="Interface\Master\IQualificationService.cs" />
+    <Compile Include="Interface\Master\ISpecializationService.cs" />
+    <Compile Include="Interface\Master\IStateService.cs" />
+    <Compile Include="Interface\Master\ITechnologyService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
