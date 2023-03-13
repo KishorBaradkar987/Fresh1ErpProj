@@ -1,0 +1,866 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    
+    <script>
+        cousefeedata = {};
+        var subjectdata = [];
+        Coursefeeid = {}
+        LocationData = {};
+        CenterData = {};
+        Qualification = [];
+        Specialization = {};
+        CourseData = {};
+        @*var registercode = @ViewBag.rsg;*@
+        var currentTab = 1;
+
+        $(document).ready(function () {
+            $("#content1").show();
+            $("#content2").hide();
+            $("#content3").hide();
+            $("#content4").hide();
+            GetStates();
+            GetQualifications();
+            SelectCenter();
+            SelectTrainingCourse();
+            SelectFeemode();
+            SelectEmployeeCode();
+            $("#ddstate").change(function () {
+                GetCities();
+
+            })
+            $("#ddcity").change(function () {
+                GetLocation();
+            })
+            $("#ddqualification").change(function () {
+                GetSpecializations();
+            })
+            $("#ddspecialization").change(function () {
+                GetSpecializationbyid();
+            })
+
+
+            $("#btnadd").click(function () {
+                AddEducation();
+            })
+            $("#btnsubmit").click(function () {
+                AddStudent();
+            })
+            $("#ddcenter").change(function () {
+                GetCenterbyid();
+            })
+            $("#ddlocation").change(function () {
+                GetLocationbyid();
+            })
+            $("#ddfeemode").change(function () {
+                GetCoursewisefees();
+            })
+            //$("#ddfeemode").change(function () {
+            //    getamountdata();
+            //})
+            $("txtdiscount").change(function () {
+                Calculate();
+            })
+            $("#ddcourseid").change(function () {
+                GetCoursebyid();
+            })
+        })
+        $(document).ready('click', 'nav.multiTabs>a',
+            function () {
+                var TabId = $(this).attr('data-trigger');
+                $('div#' + TabId + ' ').show();
+
+                console.log("Current Tab: " + TabId);
+                currentTab = parseInt(TabId.replace("content", ""));
+
+                $('.tabcontent:not(#' + TabId + ')').hide()
+
+            });
+
+        function next() {
+            if (currentTab < 4) {
+                $(".tabcontent").hide();
+                currentTab++;
+                $("#content" + (currentTab)).show();
+            }
+        }
+
+        function prev() {
+            if (currentTab > 1) {
+                $(".tabcontent").hide();
+                currentTab--;
+                $("#content" + (currentTab)).show();
+            }
+        }
+
+        function GetStates() {
+            $.ajax({
+                url: '/api/state',
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    //console.log(resp);
+
+                    $.each(resp, function (i, d) {
+                        $("#ddstate").append("<option value=" + d.state_id + ">" + d.state_name + "</option>")
+                    })
+                }
+            })
+        }
+        function GetCities() {
+            var id = $("#ddstate").val();
+            $.ajax({
+                url: '/api/stateWiseCity/' + id,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    //console.log(resp);
+                    $("#ddcity").empty();
+                    $("#ddcity").append("<option selected disable> Select City</option>")
+                    $.each(resp, function (i, d) {
+                        $("#ddcity").append("<option value=" + d.city_id + ">" + d.city_name + "</option>")
+                    })
+                }
+            })
+        }
+
+        function GetLocation() {
+            var id = $("#ddcity").val();
+            $.ajax({
+                url: ' /api/cityWiseLocation/' + id,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    console.log(resp);
+                    $("#ddlocation").empty();
+                    $("#ddlocation").append("<option selected disable> Select Location</option>")
+                    $.each(resp, function (i, d) {
+                        $("#ddlocation").append("<option value=" + d.location_id + ">" + d.location_name + "</option>")
+                    })
+                }
+            })
+        }
+
+
+        function GetQualifications() {
+            $.ajax({
+                url: '/api/qualification',
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    //console.log(resp);
+                    $("#ddqualification").empty();
+                    $("#ddqualification").append("<option selected disable> Select Qualification</option>")
+                    $.each(resp, function (i, d) {
+                        $("#ddqualification").append("<option value=" + d.qualification_id + ">" + d.qualification_name + "</option>")
+                    })
+                }
+            })
+        }
+
+        function GetSpecializations() {
+            var id = $("#ddqualification").val();
+            $.ajax({
+                url: '/api/qualificationWiseSpecialization/' + id,
+                method: 'get',
+                //contentType:'application/json',
+                success: function (resp) {
+                    console.log(resp);
+
+                    $("#ddspecialization").empty();
+                    $("#ddspecialization").append("<option selected disabled> Select Specialization</option>")
+                    $.each(resp, function (i, d) {
+                        $("#ddspecialization").append("<option value=" + d.specialization_id + ">" + d.specialization_name + "</option>")
+                    })
+                }
+            })
+        }
+
+
+        function SelectCenter() {
+            $.ajax({
+                url: '/api/center',
+                method: 'get',
+                //contentType:'application/json',
+                success: function (resp) {
+                    console.log(resp);
+                    $("#ddcenter").empty();
+                    $("#ddcenter").append("<option selected disabled> Select Center</option>")
+                    $.each(resp, function (i, d) {
+                        $("#ddcenter").append("<option value=" + d.center_id + ">" + d.center_name + "</option>")
+                    })
+                }
+
+
+            })
+        }
+
+        function SelectTrainingCourse() {
+            $.ajax({
+                url: '/api/course',
+                method: 'get',
+                success: function (resp) {
+                    console.log(resp);
+                    $("#ddcourseid").empty();
+                    $("#ddcourseid").append("<option selected disabled> Select Course</option>")
+                    $.each(resp, function (i, d) {
+                        $("#ddcourseid").append("<option value=" + d.course_id + ">" + d.course_name + "</option>")
+                    })
+                }
+            })
+        }
+
+        function SelectFeemode() {
+            $.ajax({
+                url: '/api/feemode',
+                method: 'get',
+                success: function (resp) {
+                    $("#ddfeemode").empty();
+                    $("#ddfeemode").append("<option selected disabled> Select FeeMode</option>")
+                    $.each(resp, function (i, d) {
+                        $("#ddfeemode").append("<option value=" + d.fee_mode_id + ">" + d.fee_mode + "</option>")
+                    })
+                }
+            })
+        }
+
+        function SelectEmployeeCode() {
+            $.ajax({
+                url: '/api/employee',
+                method: 'get',
+                success: function (resp) {
+                    $("#ddempcode").empty();
+                    $("#ddempcode").append("<option selected disabled> Select EmployeeCode</option>")
+                    $.each(resp, function (i, d) {
+                        $("#ddempcode").append("<option value=" + d.employee_id + ">" + d.employee_id + "_" + d.first_name + "</option>")
+                    })
+                }
+            })
+        }
+
+        function GetCoursebyid() {
+            var id = $("#ddcourseid").val();
+            $.ajax({
+                url: '/api/course/' + id,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    CourseData = resp;
+                    console.log(resp);
+
+                }
+            })
+        }
+
+        function GetCenterbyid() {
+            var id = $("#ddcenter").val();
+            $.ajax({
+                url: '/api/center/' + id,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    CenterData = resp;
+                    console.log(resp);
+
+                }
+            })
+        }
+
+        function GetLocationbyid() {
+            var id = $("#ddlocation").val();
+            $.ajax({
+                url: '/api/location/' + id,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    LocationData = resp;
+                    console.log(resp);
+
+                }
+            })
+        }
+
+        function GetSpecializationbyid() {
+            var id = $("#ddspecialization").val();
+            $.ajax({
+                url: '/api/specialization/' + id,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    Specialization = resp;
+                    console.log(resp);
+
+                }
+            })
+        }
+
+        function GetCoursewisefees() {
+            var cid = $("#ddcourseid").val();
+            var fid = $("#ddfeemode").val();
+            $.ajax({
+                url: '/api/GetAmountbycoursefee/' + cid + '/' + fid,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    //console.log(resp);
+                    cousefeedata = resp;
+                    console.log(cousefeedata);
+                    $("#txtCourseFee").val(cousefeedata[0].amount);
+                }
+            })
+        }
+
+        function AddEducation() {
+
+            var sid = Specialization.specialization_id;
+            var sname = Specialization.specialization_name;
+            var qid = Specialization.qualification_id;
+            var qname = Specialization.qualification_name;
+            var medium = $("#txtmedium").val();
+            var university = $("#txtuniversity").val();
+            var year = $("#txtyear").val();
+            var percent = $("#txtpercentage").val();
+            var flag = 0;
+            var st = { "specialization_id": sid, "medium": medium, "university": university, "passing_year": year, "percentage": percent, "specialization_name": sname, "qualification_id": qid, "qualification_name": qname, "flag": flag };
+            subjectdata.push(st);
+            DisplayQualification();
+            ClearData();
+        }
+
+        function DisplayQualification() {
+            $("#tbldata").empty();
+            $.each(subjectdata, function (i, d) {
+                $("#tbldata").append("<tr><td>" + d.qualification_name + "</td><td>" + d.specialization_name + "</td><td>" + d.medium + "</td><td>" + d.university + "</td><td>" + d.passing_year + "</td><td>" + d.percentage + "</td></tr>")
+            })
+
+        }
+
+        function Calculate() {
+            var cf = $("#txtCourseFee").val();
+            var dis = $("#txtdiscount").val();
+            var a = (dis / 100) * cf;
+            var fa = cf - a;
+            $("#txtfinalamount").val(fa);
+        }
+
+        function ClearData() {
+            $("#ddqualification").val("")
+            $("#ddspecialization").val("");
+            $("#txtmedium").val("");
+            $("#txtuniversity").val("");
+            $("#txtyear").val("");
+            $("#txtpercentage").val("");
+        }
+
+        function AddStudent() {
+            $("#img").show();
+            $("#msg").show();
+            var firstname = $("#txtfirstname").val();
+            var middlename = $("#txtmiddlename").val();
+            var lastname = $("#txtlastname").val();
+            var birthdate = $("#txtbirthdate").val();
+            var email = $("#txtemail").val();
+            var mobilenumber = $("#txtmobilenumber").val();
+            var Alternatemobile = $("#txtAlternatemobile").val();
+            var state = $("#ddstate").val();
+            var city = $("#ddcity").val();
+            var location = $("#ddlocation").val();
+            var localaddress = $("#txtlocaladdress").val();
+            var permenentaddress = $("#txtpermenentaddress").val();
+            var photo = "dummy";//$("#ddphoto").val();
+            var centerid = $("#ddcenter").val();
+            var specid = $("#ddspecialization").val();
+            var medium = $("#txtmedium").val();
+            var university = $("#txtuniversity").val();
+            var pyear = $("#txtyear").val();
+            var per = $("#txtpercentage").val();
+            var joinigdate = $("#txtjoindate").val();
+            var courseid = $("#ddcourseid").val();
+            var feemodeid = $("#ddfeemode").val();
+            var discount = $("#txtdiscount").val();
+            var amount = $("#txtfinalamount").val();
+            var discountreason = $("#txtdiscountreason").val();
+            var employeeid = $("#ddempcode").val();
+            var paymentdate = $("#txtpaymentdate").val();
+            var paymentamount = $("#txtpaymentamount").val();
+            var paymentmode = $("#txtpaymentmode").val();
+            var description = $("#txtdescription").val();
+            var regist = registercode;
+            var currentstatus = "Valid";
+
+
+            var st = { "first_name": firstname, "middle_name": middlename, "last_name": lastname, "birth_date": birthdate, "email_address": email, "mobile_number": mobilenumber, "alternative_number": Alternatemobile, "photo": photo, "local_address": localaddress, "permenant_address": permenentaddress, "location_id": location, "center_id": centerid,"flag":0, "tblstudent_qualifications": subjectdata, /*"tblCenter_Details": CenterData,*/ /*"tblLocation": LocationData, "tblrole": {"role_id":2, "role":"Student"},*/ "tblstudent_registration_details": [{ "joining_date": joinigdate, "course_id": courseid, "course_fee_id": cousefeedata[0].course_fee_id, "discount": discount, "discount_reason": discountreason, "employee_id": employeeid, "current_status": currentstatus, "registration_code": regist, "flag": 0, "tblstudent_payment_details": [{ "employee_id": employeeid, "payment_date": paymentdate, "payment_for": CourseData.course_name, "payment_amount": paymentamount, "payment_mode": paymentmode, "description": description, "flag": 0, }] }] };
+            $.ajax({
+                url: '/api/StudentDetails',
+                method: 'post',
+                data: JSON.stringify(st),
+                contentType: 'application/json',
+                success: function (resp) {
+                    $("#img").hide();
+                    $("#msg").hide();
+                    alert(resp);
+                    ClearData();
+                    console.log(resp);
+                }
+            })
+        }
+
+    </script>
+    <style>
+        #tabs {
+            background-color: black;
+            margin: 0px;
+        }
+
+        #data {
+            font-size: 18px;
+            color: white
+        }
+
+        body {
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        #table1 {
+            height: 120px;
+            overflow: scroll;
+        }
+
+        .container-fluid {
+            margin-top: 70px;
+            padding: 50px;
+        }
+
+        #toggletabs {
+            font-size: 15px;
+        }
+
+        #btnsubmit {
+            width: 50%;
+            color: white;
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+
+        #img {
+            display: none;
+            width: 30px;
+            height: 30px;
+        }
+
+        #msg {
+            display: none;
+        }
+
+        #mainpanel {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div >
+        
+        <br />
+        <div class="container-fluid text-center">
+            <div class="col-md-2"></div>
+            
+            <div class="col-md-8">
+
+                <div class="panel" id="mainpanel">
+                    <div class="panel-body">
+                        <center><h2 style="font-family:'Times New Roman', Times, serif">Student Registration Form</h2></center>
+                        @*<form method="post" enctype="multipart/form-data">*@
+                        @*<form action="/api/StudentDetails" method="post" enctype="multipart/form-data">*@
+                        <div class="row">
+                          
+                            <div class="col-md-12">
+                                <div class="tab-content">
+                                    <div class="tabcontent" id="content1">
+
+                                        <div class="panel panel-info">
+
+                                            <div class="panel-heading">
+                                                <center><h4>Student Profile</h4></center><br>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+
+                                                    <div class="col-md-3">
+
+                                                        <input type="text" id="txtfirstname" class="form-control" placeholder="First Name" required />
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-3">
+
+                                                        <input type="text" id="txtmiddlename" class="form-control" placeholder="Middle Name" required />
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-3">
+
+                                                        <input type="text" id="txtlastname" class="form-control" placeholder="Last Name" required/>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-3">
+                                                        <label>Birth Date</label>
+                                                        <input type="date" id="txtbirthdate" class="form-control" placeholder="Birth date" required/>
+
+                                                    </div>
+                                                    <br /><br /><br /><br />
+                                                    <div class="col-md-6">
+
+                                                        <input type="text" id="txtemail" class="form-control" placeholder="Email Address" required/>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-3">
+
+                                                        <input type="text" id="txtmobilenumber" class="form-control" placeholder="Mobile Number" required/>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-3">
+
+                                                        <input type="text" id="txtAlternatemobile" class="form-control" placeholder="Alternate Mobile" required/>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-4">
+
+                                                        <select class="form-control" id="ddstate" required>
+                                                            <option>Select State</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-4">
+                                                        <select class="form-control" id="ddcity" required>
+                                                            <option>Select City</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-4">
+
+                                                        <select class="form-control" id="ddlocation" required>
+                                                            <option>Select Location</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-6">
+
+                                                        <textarea id="txtlocaladdress" class="form-control" placeholder="Local Address" required></textarea>
+
+                                                    </div>
+                                                    <br /><br /><br /><br />
+                                                    <div class="col-md-6">
+
+                                                        <textarea id="txtpermenentaddress" class="form-control" placeholder="Permenent Address" required></textarea>
+
+                                                    </div>
+                                                    @*<br /><br /><br /><br />
+        <div class="col-md-6">
+
+            Student Image
+            <input type="file" name="image" />
+
+        </div>*@
+
+                                                    @*<div class="col-3">
+
+               <input type="text" id="txtstudentcode" class="form-control" placeholder="Student Code" disabled />
+
+        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div @*style="margin-bottom:50px"*@>
+
+                                                    <button class="btn btn-primary btn-lg float-right" onclick="next()">Next</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tabcontent" id="content2">
+
+                                        <div class="panel panel-info">
+
+                                            <div class="panel-heading"><center><h4>Education Details</h4></center></div>
+
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+
+
+                                                        <select class="form-control" id="ddqualification" required>
+                                                            <option>Select Qualification</option>
+                                                        </select>
+
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-2">
+
+
+                                                        <select class="form-control" id="ddspecialization" required>
+                                                            <option>Select Specialization</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-2">
+
+
+                                                        <input type="text" class=" form-control" id="txtmedium" placeholder="Medium" required/>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-2">
+                                                        <input type="text" class=" form-control" id="txtuniversity" placeholder="University" required/>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-1">
+
+                                                        <input type="text" class=" form-control" id="txtyear" placeholder="Year" title="Passing Year" required />
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-2">
+
+
+                                                        <input type="text" class=" form-control" id="txtpercentage" placeholder="Percentage " required />
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-1">
+
+                                                        <input type="button" value="Add" class="btn btn-success" id="btnadd" />
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <br />
+                                            <div class="panel-footer">
+                                                <div id="table1">
+                                                    <table class="table table-bordered" style="width:100%;" border="1">
+
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Qualification</th>
+                                                                <th>Specialization</th>
+                                                                <th>Medium</th>
+                                                                <th>University</th>
+                                                                <th>Year</th>
+                                                                <th>Percentage</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbldata"></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div @*style="margin-bottom:50px"*@>
+                                                    <button class="btn btn-primary btn-lg float-left" onclick="prev()">Previous</button>
+                                                    <button class="btn btn-primary btn-lg float-right" onclick="next()">Next</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tabcontent" id="content3">
+
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <center><h4>Registration Details</h4></center>
+
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+
+                                                        <select class="form-control" id="ddcenter" required>
+                                                            <option>Center Name</option>
+                                                        </select>
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-4">
+
+                                                        <b>Joining Date</b><br />
+                                                        <input type="date" class="form-control" id="txtjoindate" placeholder="Joining Date" required/>
+
+                                                    </div>
+                                                    <br /><br /><br /><br />
+                                                    <div class="col-md-4">
+
+                                                        @*<b>Training Program</b>*@
+                                                        <select class="form-control" id="ddcourseid" required>
+                                                            <option>Course Name</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-4">
+
+                                                        @*<b>Fee mode</b>*@
+                                                        <select class="form-control" id="ddfeemode" required>
+                                                            <option>Select Fee Mode</option>
+                                                        </select>
+
+                                                    </div>
+
+                                                    <br /><br /><br />
+                                                    <div class="col-md-4">
+
+                                                        <input type="text" class="form-control" id="txtCourseFee"  placeholder="Course Fee" required/>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-4">
+
+
+                                                        <input type="text" class="form-control" id="txtdiscount" onchange="Calculate()" placeholder="Discount" required/>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-4">
+
+
+                                                        <input type="text" class="form-control" id="txtfinalamount" placeholder="Final Amount" required/>
+
+                                                    </div>
+
+
+                                                    <br /><br /><br />
+                                                    <div class="col-md-12">
+
+
+                                                        <input type="text" class="form-control" id="txtdiscountreason" placeholder="Discount Reason" required/>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div @*style="margin-bottom:50px"*@>
+                                                    <button class="btn btn-primary btn-lg float-left" onclick="prev()">Previous</button>
+                                                    <button class="btn btn-primary btn-lg float-right" onclick="next()">Next</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tabcontent" id="content4">
+
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <center><h4>Payment Details</h4></center>
+
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+
+                                                        <b>Received By</b>
+                                                        <select class="form-control" id="ddempcode" required>
+                                                            <option>Employee Code</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                        <b>Payment Date</b>
+                                                        <input type="date" class="form-control" id="txtpaymentdate" placeholder="Payment Date" required />
+
+                                                    </div>
+                                                    <br /><br /><br /><br />
+                                                    <div class="col-md-6">
+
+
+                                                        <input type="text" class="form-control" id="txtpaymentamount" placeholder="Payment Amount" required />
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-6">
+
+
+                                                        <select class="form-control" id="txtpaymentmode" required>
+                                                            <option selected disabled>Select Payment Mode</option>
+                                                            <option value="Cash">Cash</option>
+                                                            <option value="Cheque">Cheque</option>
+                                                            <option value="Google Pay">Google Pay</option>
+                                                            <option value="Phone Pay">Phone Pay</option>
+                                                            <option value="Paytm">Paytm</option>
+                                                            <option value="Net Banking">Net Banking</option>
+                                                            <option value="Other">Other</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <br /><br /><br />
+                                                    <div class="col-md-12">
+
+                                                        <textarea class="form-control" id="txtdescription" placeholder="Payment Description" required></textarea>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <br /><br />
+                                            <div class="col-md-12">
+                                                
+                                                    <input type="submit" value="Submit" class="btn btn-lg" id="btnsubmit" />
+                                                    <img src="~/Areas/Accountant/Data/loading-gif.gif"  id="img"/>
+                                                    <br />
+                                                    <p id="msg"><b>Data is Saving .....</b></p>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div @*style="margin-bottom:50px"*@>
+                                                    <button class="btn btn-primary btn-lg float-left" onclick="prev()">Previous</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-2"></div>
+                            @*</form>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

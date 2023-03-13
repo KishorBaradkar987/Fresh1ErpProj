@@ -67,7 +67,7 @@ namespace Fresh1ErpProj.Controllers
         }
 
         [HttpDelete]
-        [Route("api/qualification/{id}")]
+        [Route("api/deletequalification/{id}")]
         public string DeleteQualification(int id)
         {
             sp_fetch_tblqualifications_Result q = new sp_fetch_tblqualifications_Result()
@@ -122,12 +122,12 @@ namespace Fresh1ErpProj.Controllers
         }
 
         [HttpDelete]
-        [Route("api/specialization/{id}")]
+        [Route("api/deletespecialization/{id}")]
         public string DeleteSpecialization(int id)
         {
             sp_fetch_tblspecializations_Result s = new sp_fetch_tblspecializations_Result()
             {
-                qualification_id = id
+                specialization_id = id
             };
             specializationservice.DeleteSpecialization(s);
             return "Specialization Deleted Successfully";
@@ -143,6 +143,13 @@ namespace Fresh1ErpProj.Controllers
             };
             specializationservice.RestoreSpecialization(s);
             return "Specialization Restored Successfully";
+        }
+
+        [HttpGet]
+        [Route("api/qualificationWiseSpecialization/{id}")]
+        public List<sp_fetch_tblspecializations_Result> QualificationWiseSpecialization(int id)
+        {
+            return specializationservice.GetAllSpecializations().Where(e => e.qualification_id.Equals(id)).ToList();
         }
 
         //---------------------------------- State Apis --------------------------------------------------------//
@@ -257,6 +264,13 @@ namespace Fresh1ErpProj.Controllers
             return "City Restored Successfully";
         }
 
+        [HttpGet]
+        [Route("api/stateWiseCity/{id}")]
+        public List<sp_fetch_tblcities_Result> StateWiseCities(int id)
+        {
+            return cityservice.GetAllCities().Where(e => e.state_id.Equals(id)).ToList();
+        }
+
         //-------------------------------------------------Location Apis------------------------------------------------------//
 
         [HttpGet]
@@ -312,6 +326,13 @@ namespace Fresh1ErpProj.Controllers
             locationservice.RestoreLocation(s);
             return "Location Restored Successfully";
         }
+
+        [HttpGet]
+        [Route("api/cityWiseLocation/{id}")]
+        public List<sp_fetch_tbllocations_Result> CityWiseLocations(int id)
+        {
+            return locationservice.GetAllLocations().Where(e => e.city_id.Equals(id)).ToList();
+        }
         //-----------------------------------------------------Fee Mode Apis-------------------------------------------------------//
 
         [HttpGet]
@@ -345,7 +366,7 @@ namespace Fresh1ErpProj.Controllers
         }
 
         [HttpDelete]
-        [Route("api/feemode/{id}")]
+        [Route("api/deletefeemode/{id}")]
         public string DeleteFeeMode(int id)
         {
             sp_fetch_tblfee_modes_Result s = new sp_fetch_tblfee_modes_Result()
@@ -401,7 +422,7 @@ namespace Fresh1ErpProj.Controllers
         }
 
         [HttpDelete]
-        [Route("api/technology/{id}")]
+        [Route("api/deletetechnology/{id}")]
         public string DeleteTechnology(int id)
         {
             sp_fetch_tbltechnologies_Result s = new sp_fetch_tbltechnologies_Result()
@@ -457,7 +478,7 @@ namespace Fresh1ErpProj.Controllers
         }
 
         [HttpDelete]
-        [Route("api/designation/{id}")]
+        [Route("api/deletedesignation/{id}")]
         public string DeleteDesignation(int id)
         {
             sp_fetch_tbldesignations_Result s = new sp_fetch_tbldesignations_Result()

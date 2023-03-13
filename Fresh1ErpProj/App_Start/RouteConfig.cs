@@ -18,6 +18,13 @@ namespace Fresh1ErpProj
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name:"twoid",
+                url: "api/{controller}/{action}/{courseid}/{feemodeid}",
+                new {  courseid =UrlParameter.Optional,
+                       feemodeid = UrlParameter.Optional
+                });
         }
     }
 }

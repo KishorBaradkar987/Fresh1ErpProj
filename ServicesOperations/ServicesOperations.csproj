@@ -57,6 +57,8 @@
     <Compile Include="Implementations\Accountant\RegistrationDetailService.cs" />
     <Compile Include="Implementations\Accountant\StudentDetailService.cs" />
     <Compile Include="Implementations\Accountant\StudentQualificationService.cs" />
+    <Compile Include="Implementations\Branch\CenterDetailsService.cs" />
+    <Compile Include="Implementations\Branch\EmployeeDetailsService.cs" />
     <Compile Include="Implementations\Developer\CourseFeeService.cs" />
     <Compile Include="Implementations\Developer\CourseService.cs" />
     <Compile Include="Implementations\Master\CityService.cs" />
@@ -72,6 +74,8 @@
     <Compile Include="Interface\Accountant\IRegistrationDetailService.cs" />
     <Compile Include="Interface\Accountant\IStudentDetailService.cs" />
     <Compile Include="Interface\Accountant\IStudentQualificationService.cs" />
+    <Compile Include="Interface\Branch\ICenterDetailsService.cs" />
+    <Compile Include="Interface\Branch\IEmployeeDetailsService.cs" />
     <Compile Include="Interface\Developer\ICourseFeeService.cs" />
     <Compile Include="Interface\Developer\ICourseService.cs" />
     <Compile Include="Interface\Master\ICityService.cs" />

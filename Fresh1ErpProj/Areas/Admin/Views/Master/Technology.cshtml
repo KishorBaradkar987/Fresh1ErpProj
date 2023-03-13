@@ -5,4 +5,163 @@
 }
 
 <h2>Technology</h2>
+<script>
+    $(document).ready(function () {
 
+        ClearData();
+        FetchTechnology();
+
+        $("#btnaddtechnology").click(function () {
+            $("#technologymodal").modal("show");
+        })
+        $("#btnsubmit").click(function () {
+            AddTechnology();
+        })
+        $("#btnupdate").click(function () {
+            UpdateTechnology();
+        })
+        $("#btndelete").click(function () {
+            DeleteTechnology();
+        })
+        $("#btnclose").click(function () {
+            ClearData();
+        })
+    })
+    function FetchTechnology() {
+        $.ajax({
+            url: '/api/technology',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#tbldata").empty();
+                $.each(resp, function (i, d) {
+                    $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.technology_name + "</td><td><input type='button' value='Edit' onclick='EditTechnology(" + d.technology_id + ")'<span></span><input type='button' value='Delete' onclick='DeleteTechnology(" + d.technology_id + ")'</td></tr>")
+                })
+            }
+        })
+    }
+
+    function AddTechnology() {
+        var tid = $("#txttechnologyid").val();
+        var t = $("#txttechnologyname").val();
+        var st = { "TechnologyId": tid, "TechnologyName": t };
+        $.ajax({
+            url: '/api/technology',
+            method: 'post',
+            data: (st),
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchTechnology();
+                ClearData();
+            }
+        })
+
+
+    }
+
+    function EditTechnology(id) {
+        $("#technologymodal").modal("show");
+
+        $.ajax({
+            url: '/api/technology/' + id,
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#txttechnologyid").val(resp.technologyId);
+                $("#txttechnologyname").val(resp.technologyName);
+                $("#btnupdate").show();
+                $("#btnsubmit").hide();
+            }
+        })
+    }
+    function UpdateTechnology() {
+        var tid = $("#txttechnologyid").val();
+        var t = $("#txttechnologyname").val();
+        var st = { "TechnologyId": tid, "TechnologyName": t };
+        $.ajax({
+            url: '/api/technology',
+            method: 'put',
+            data: (st),
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchTechnology();
+                ClearData();
+            }
+        })
+
+
+    }
+    function DeleteTechnology(id) {
+        $.ajax({
+            url: '/api/technology/' + id,
+            method: 'delete',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchTechnology();
+
+            }
+        })
+    }
+    function ClearData() {
+        $("#txttechnologyid").val("");
+        $("#txttechnologyname").val("");
+        $("#btnsubmit").show();
+        $("#btnupdate").hide();
+        $("#btndelete").hide();
+        $("#technologymodal").modal("hide");
+
+    }
+</script>
+
+
+    <input type="button" value="Add Technology" class="btn btn-secondary" id="btnaddtechnology" />
+    <br /><br />
+
+
+
+    <div class="modal fade" id="technologymodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+
+                    <h4>Technology Form</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Technology Id</label>
+                        <input type="text" id="txttechnologyid" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label>Technology Name</label>
+                        <input type="text" id="txttechnologyname" class="form-control" />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                    <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                    <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                    <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <table class="table table-bordered;table table-info">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Technology Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbldata"></tbody>
+    </table>

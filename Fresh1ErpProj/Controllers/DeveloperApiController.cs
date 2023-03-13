@@ -53,7 +53,7 @@ namespace Fresh1ErpProj.Controllers
         }
 
         [HttpDelete]
-        [Route("api/course/{id}")]
+        [Route("api/deletecourse/{id}")]
         public string DeleteCourse(int id)
         {
             sp_fetch_tbltrainingcourses_Result q = new sp_fetch_tbltrainingcourses_Result()
@@ -109,7 +109,7 @@ namespace Fresh1ErpProj.Controllers
         }
 
         [HttpDelete]
-        [Route("api/coursefee/{id}")]
+        [Route("api/deletecoursefee/{id}")]
         public string DeleteCourseFee(int id)
         {
             sp_fetch_tblcourse_fees_Result q = new sp_fetch_tblcourse_fees_Result()
@@ -130,6 +130,14 @@ namespace Fresh1ErpProj.Controllers
             };
             courseFeeService.RestoreCourseFee(q);
             return "Course Fee  Restored Successfully";
+        }
+
+        [HttpGet]
+        [Route("api/GetAmountbycoursefee/{courseid}/{feemodeid}")]
+        public List<sp_fetch_tblcourse_fees_Result> GetAmountbycoursefee(int courseid, int feemodeid)
+        {
+           
+            return courseFeeService.GetAllCourseFees().Where(e=>e.course_id.Equals(courseid) && e.fee_mode_id.Equals(feemodeid)).ToList();
         }
 
     }

@@ -6,3 +6,184 @@
 
 <h2>Specialization</h2>
 
+<script>
+    $(document).ready(function () {
+
+        ClearData();
+        FetchSpecializations();
+        SelectQualification();
+
+
+        $("#btnaddspecialization").click(function () {
+            ClearData();
+            $("#specializationmodal").modal("show");
+        })
+        $("#btnsubmit").click(function () {
+            AddSpecialization();
+        })
+        $("#btnupdate").click(function () {
+            UpdateSpecialization();
+        })
+        $("#btndelete").click(function () {
+            DeleteSpecialization();
+        })
+        $("#btnclose").click(function () {
+            ClearData();
+        })
+    })
+    function SelectQualification() {
+        $.ajax({
+            url: '/api/qualification',
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#ddqualification").empty()
+                $("#ddqualification").append("<option selected disabled>Select Qualification</option>")
+                $.each(resp, function (i, d) {
+                    $("#ddqualification").append("<option value=" + d.qualification_id + ">" + "  " + d.qualification_name + "</option>")
+                })
+
+            }
+
+        })
+    }
+    function FetchSpecializations() {
+
+        $.ajax({
+            url: '/api/specialization',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                $("#tbldata").empty();
+                $.each(resp, function (i, d) {
+                            $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.qualification_name +
+                   "</td><td>" + d.specialization_name + "</td><td> <input type='button' value='Edit' onclick='EditSpecialization(" + d.specialization_id + ")'/><span></span><input type='button' value='Delete' onclick='DeleteSpecialization(" + d.specialization_id + ")'/></td></tr>")
+                })
+
+            }
+
+        })
+    }
+    function EditSpecialization(id) {
+        $("#specializationmodal").modal("show");
+        $.ajax({
+            url: '/api/specialization/' + id,
+            method: 'get',
+            //contentType: 'application/json',
+             success: function (resp) {
+                 console.log(resp);
+                $("#txtspecializationid").val(resp.specialization_id);
+                $("#txtspecializationname").val(resp.specialization_name);
+                $("#ddqualification").val(resp.qualification_id);
+                $("#btnupdate").show();
+                $("#btnsubmit").hide();
+            }
+        })
+    }
+    function UpdateSpecialization() {
+        var sid = $("#ddqualification").val();
+        var cid = $("#txtspecializationid").val();
+        var s = $("#txtspecializationname").val();
+        var st = { "SpecializationId": cid, "SpecializationName": s, "QualificationId": sid };
+        $.ajax({
+            url: '/api/specialization',
+            method: 'put',
+            data: (st),
+            //contentType: 'application/json',
+            success: function (resp) {
+                // alert("Updated Successfully");
+                FetchSpecializations();
+                ClearData();
+            }
+        })
+    }
+    function DeleteSpecialization(id) {
+        $.ajax({
+            url: '/api/specialization/' + id,
+            method: 'delete',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchSpecializations();
+            }
+        })
+    }
+
+    function AddSpecialization() {
+        var sid = $("#ddqualification").val();
+        var cid = $("#txtspecializationid").val();
+        var c = $("#txtspecializationname").val();
+        var st = { "SpecializationId": cid, "SpecializationName": c, "QualificationId": sid };
+        $.ajax({
+            url: '/api/specialization',
+            method: 'post',
+            data: (st),
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchSpecializations();
+                ClearData();
+            }
+        })
+
+    }
+    function ClearData() {
+        $("#ddqualification").val("");
+        $("#txtspecializationid").val("");
+        $("#txtspecializationname").val("");
+        $("#btnsubmit").show();
+        $("#btnupdate").hide();
+        $("#btndelete").hide();
+        $("#specializationmodal").modal("hide");
+    }
+
+</script>
+
+    <input type="button" value="Add Specialization" class="btn btn-secondary" id="btnaddspecialization" />
+    <br /><br />
+
+    <div class="modal fade" id="specializationmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+
+                    <h4>Specialization Form</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <b>Qualification</b><select id="ddqualification" class="form-control">
+                            <option>select Qualification</option>
+                        </select><br />
+                    </div>
+                    <div class="form-group">
+                        <label>Specialization Id</label>
+                        <input type="text" id="txtspecializationid" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label>Specialization Name</label>
+                        <input type="text" id="txtspecializationname" class="form-control" />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                    <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                    <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                    <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered;table table-info">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Qualification</th>
+                <th>Specialization</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbldata"></tbody>
+    </table>

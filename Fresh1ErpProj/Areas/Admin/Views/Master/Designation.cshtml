@@ -6,3 +6,160 @@
 
 <h2>Designation</h2>
 
+<script>
+    $(document).ready(function () {
+
+        ClearData();
+        FetchDesignation();
+        $("#btnadddesignation").click(function () {
+            $("#designationmodal").modal("show");
+        })
+        $("#btnsubmit").click(function () {
+            AddDesignation();
+        })
+        $("#btnupdate").click(function () {
+            UpdateDesignation();
+        })
+        $("#btndelete").click(function () {
+            DeleteDesignation();
+        })
+        $("#btnclose").click(function () {
+            ClearData();
+        })
+    })
+    function FetchDesignation() {
+        $.ajax({
+            url: '/api/designation',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#tbldata").empty();
+                $.each(resp, function (i, d) {
+                    $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.designation_name + "</td><td><input type='button' value='Edit' onclick='EditDesignation(" + d.designation_id + ")'<span></span><input type='button' value='Delete' onclick='DeleteDesignation(" + d.designation_id + ")'</td></tr>")
+                })
+            }
+        })
+    }
+
+    function AddDesignation() {
+        var qid = $("#txtdesignationid").val();
+        var q = $("#txtdesignationname").val();
+        var st = { "DesignationId": qid, "DesignationName": q };
+        $.ajax({
+            url: '/api/designation',
+            method: 'post',
+            data: (st),
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchDesignation();
+                ClearData();
+            }
+        })
+
+
+    }
+
+    function EditDesignation(id) {
+        $("#designationmodal").modal("show");
+
+        $.ajax({
+            url: '/api/designation/' + id,
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#txtdesignationid").val(resp.designationId);
+                $("#txtdesignationname").val(resp.designationName);
+                $("#btnupdate").show();
+                $("#btnsubmit").hide();
+            }
+        })
+    }
+    function UpdateDesignation() {
+        var qid = $("#txtdesignationid").val();
+        var q = $("#txtdesignationname").val();
+        var st = { "DesignationId": qid, "DesignationName": q };
+        $.ajax({
+            url: '/api/designation',
+            method: 'put',
+            data: (st),
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchDesignation();
+                ClearData();
+            }
+        })
+
+
+    }
+    function DeleteDesignation(id) {
+        $.ajax({
+            url: '/api/deletedesignation/' + id,
+            method: 'delete',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchDesignation();
+
+            }
+        })
+    }
+    function ClearData() {
+        $("#txtdesignationid").val("");
+        $("#txtdesignationname").val("");
+        $("#btnsubmit").show();
+        $("#btnupdate").hide();
+        $("#btndelete").hide();
+        $("#designationmodal").modal("hide");
+
+    }
+</script>
+
+ 
+    <input type="button" value="Add Designation" class="btn btn-secondary" id="btnadddesignation" />
+    <br /><br />
+
+
+
+    <div class="modal fade" id="designationmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+
+                    <h4>Designation Form</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Designation Id</label>
+                        <input type="text" id="txtdesignationid" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label>Designation Name</label>
+                        <input type="text" id="txtdesignationname" class="form-control" />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                    <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                    <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                    <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered;table table-info">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Designation Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbldata"></tbody>
+
+    </table>

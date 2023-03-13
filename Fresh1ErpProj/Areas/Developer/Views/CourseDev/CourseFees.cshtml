@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewBag.Title = "CourseFees";
+    Layout = "~/Areas/Developer/Views/Shared/DeveloperLayout.cshtml";
+}
+
+<h2>CourseFees</h2>
+
+<script>
+$(document).ready(function() {
+            ClearData();
+            FetchCourseFees();
+            SelectCourse();
+            SelectFeeMode();
+    $("#mybtn").click(function() {
+        $("#myModal").modal("show");
+    })
+    $("#btnsubmit").click(function() {
+        AddCourseFee();
+    })
+    $("#btnupdate").click(function() {
+        UpdateCourseFee();
+    })
+    $("#btnclose").click(function(){
+        ClearData();
+    })
+})
+
+function FetchCourseFees() {
+    $.ajax({
+        url: '/api/coursefee',
+        method : 'get',
+        contentType : 'application/json',
+        success: function(resp) {
+            console.log(resp);
+            $("#tbldata").empty();
+            $.each(resp, function(i, d) {
+                $("#tbldata").append("<tr><td>"+(i+1)+"</td>><td>"+d.course_name+"</td><td>"+d.fee_mode+"</td><td>"+d.amount+"</td><td>"+d.tax+
+                    "</td><td><input type='button' value='Edit' onclick='EditCourseFee("+d.course_fee_id+")'><span></span><input type='button' value='Delete' onclick='DeleteCourseFee("+d.course_fee_id+")'></td></tr>")
+            })
+        }
+    })
+}
+function SelectCourse() {
+    $.ajax({
+        url:'/api/course',
+        method:'get',
+        //contentType:'application/json',
+        success: function(resp) {
+            $("#ddcourse").empty();
+            $("#ddcourse").append("<Option selected disabled>Select Course</option>");
+            $.each(resp, function(i, d) {
+                $("#ddcourse").append("<option value=" + d.course_id + ">" + d.course_name +"</option>")
+            } )
+        }
+    })
+}
+
+function SelectFeeMode() {
+    $.ajax({
+        url:'/api/feemode',
+        method:'get',
+        //contentType:'application/json',
+        success: function(resp) {
+            $("#ddfeemode").empty();
+            $("#ddfeemode").append("<Option selected disabled>Select FeeMode</option>");
+            $.each(resp, function (i, d) {
+                $("#ddfeemode").append("<option value=" + d.fee_mode_id + ">" + d.fee_mode + "</option>")
+            } )
+        }
+    })
+}
+
+function EditCourseFee(id){
+    $("#myModal").modal("show");
+    $.ajax({
+        url:'/api/coursefee/'+id,
+        method:'get',
+        //contentType: 'application/json',
+        success: function(resp) {
+            console.log(resp);
+            $("#txtcoursefeeid").val(resp.course_fee_id);
+            $("#ddcourse").val(resp.course_id);
+            $("#ddfeemode").val(resp.fee_Mode_id);
+            $("#txtamount").val(resp.amount);
+            $("#txttax").val(resp.tax)
+            $("#btndelete").hide();
+            $("#btnupdate").show();
+            $("#btnsubmit").hide();
+        }
+    })
+}
+
+function AddCourseFee() {
+    var cid = $("#ddcourse").val();
+    var fid = $("#ddfeemode").val();
+    var a = $("#txtamount").val();
+    var t = $("#txttax").val();
+    var cf = { "CourseId": cid, "FeeModeId": fid, "Amount": a, "Tax": t };
+    $.ajax({
+        url:'/api/coursefee',
+        method:'post',
+        data:(cf),
+        success: function(resp) {
+            console.log(resp);
+            FetchCourseFees();
+            ClearData();
+        }
+    })
+}
+
+ function DeleteCourseFee(id) {
+        $.ajax({
+            url: '/api/deletecoursefee/' + id,
+            method: 'delete',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchCourseFees();
+            }
+        })
+    }
+
+    function UpdateCourseFee() {
+    var cf = $("#txtcoursefeeid").val();
+    var cid = $("#ddcourse").val();
+    var fid = $("#ddfeemode").val();
+    var a = $("#txtamount").val();
+    var t = $("#txttax").val();
+    var cf = { "CourseFeeId": cf, "CourseId": cid, "FeeModeId": fid, "Amount": a, "Tax": t };
+    $.ajax({
+        url:'/api/coursefee',
+        method:'put',
+        data:(cf),
+        success: function(resp) {
+            console.log(resp);
+            FetchCourseFees();
+            ClearData();
+        }
+    })
+}
+
+
+
+function ClearData() {
+        $("#txtcoursefeeid").val("");
+        $("#ddcourse").val("");
+        $("#ddfeemode").val("");
+        $("#txtamount").val("");
+        $("#txttax").val("");
+        $("#btnsubmit").show();
+        $("#btnupdate").hide();
+        $("#btndelete").hide();
+        $("#myModal").modal("hide");
+}
+</script>
+
+  
+
+    <button type="button" id="mybtn" class="btn btn-secondary">Add Course Fee</button>
+
+    <br /><br />
+
+    <div id="myModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+
+                    <h4 class="modal-title">Course Fee Form</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Course Fee Id</label>
+                        <input type="text" id="txtcoursefeeid" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <select class="form-control" id="ddcourse">
+                            <option>Select Course</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fee Mode</label>
+                        <select class="form-control" id="ddfeemode">
+                            <option>Select Fee Mode</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="text" id="txtamount" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Tax</label>
+                        <input type="text" id="txttax" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                    <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                    <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                    <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <table class="table table-bordered; table table-info">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Course Name</th>
+                    <th>FeeMode</th>
+                    <th>Amount</th>
+                    <th>Tax</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbldata">
+            </tbody>
+        </table>
+    </div>

@@ -5,4 +5,159 @@
 }
 
 <h2>Qualification</h2>
+<script>
+     $(document).ready(function () {
 
+         ClearData();
+         FetchQualifications();
+         $("#btnaddqualification").click(function () {
+             $("#qualificationmodal").modal("show");
+         })
+         $("#btnsubmit").click(function () {
+             AddQualification();
+         })
+         $("#btnupdate").click(function () {
+             UpdateQualification();
+         })
+         $("#btndelete").click(function () {
+             DeleteQualification();
+         })
+         $("#btnclose").click(function () {
+             ClearData();
+         })
+     })
+     function FetchQualifications() {
+         $.ajax({
+             url: '/api/qualification',
+             method: 'get',
+             contentType: 'application/json',
+             success:function(resp)
+             {
+                 console.log(resp);
+                 $("#tbldata").empty();
+                 $.each(resp, function (i, d) {
+                     $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.qualification_name +
+                         "</td><td> <input type='button' value='Edit' onclick='EditQualification(" + d.qualification_id + ")'/<span></span><input type='button' value='Delete' onclick='DeleteQualification(" + d.qualification_id + ")'/></td></tr>")
+                 })
+
+             }
+
+         })
+     }
+     function EditQualification(id)
+     {
+         $("#qualificationmodal").modal("show");
+         $.ajax({
+             url: '/api/qualification/'+id,
+             method: 'get',
+             //contentType: 'application/json',
+             success:function(resp)
+             {
+                  $("#txtqualificationid").val(resp.qualificationId);
+                 $("#txtqualificationname").val(resp.qualificationName);
+                 $("#btnupdate").show();
+                 $("#btnsubmit").hide();
+             }
+         })
+     }
+     function UpdateQualification()
+     {
+         var qid = $("#txtqualificationid").val();
+         var q = $("#txtqualificationname").val();
+         var st = { "QualificationId": qid, "QualificationName": q };
+         $.ajax({
+             url: '/api/qualification',
+             method: 'put',
+             data: (st),
+             //contentType: 'application/json',
+             success: function (resp) {
+                // alert("Updated Successfully");
+                 FetchQualifications();
+                 ClearData();
+             }
+         })
+     }
+     function  DeleteQualification(id)
+     {
+         $.ajax({
+             url: '/api/deletequalification/' + id,
+             method: 'delete',
+             contentType: 'application/json',
+             success: function (resp) {
+                 console.log(resp);
+                 FetchQualifications();
+             }
+         })
+     }
+
+     function AddQualification() {
+         var qid = $("#txtqualificationid").val();
+         var q = $("#txtqualificationname").val();
+         var st = { "QualificationId": qid, "QualificationName": q };
+         $.ajax({
+             url: '/api/qualification',
+             method: 'post',
+             data:(st),
+             //contentType: 'application/json',
+             success: function (resp) {
+                 console.log(resp);
+                 FetchQualifications();
+                 ClearData();
+             }
+         })
+
+     }
+     function ClearData() {
+         $("#txtqualificationid").val("");
+         $("#txtqualificationname").val("");
+         $("#btnsubmit").show();
+         $("#btnupdate").hide();
+         $("#btndelete").hide();
+         $("#qualificationmodal").modal("hide");
+
+     }
+</script>
+
+    <input type="button" value="Add Qualification" class="btn btn-secondary" id="btnaddqualification" />
+    <br />
+    <br />
+
+    <div class="modal fade" id="qualificationmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+
+                    <h4>Qualification Form</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Qualification Id</label>
+                        <input type="text" id="txtqualificationid" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label>Qualification Name</label>
+                        <input type="text" id="txtqualificationname" class="form-control" />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                    <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                    <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                    <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered;table table-info">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Qualification Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbldata"></tbody>
+
+    </table>

@@ -1,0 +1,197 @@
+﻿
+@{
+    ViewBag.Title = "Course";
+    Layout = "~/Areas/Developer/Views/Shared/DeveloperLayout.cshtml";
+}
+
+<h2>Course</h2>
+
+<script>
+    $(document).ready(function () {
+
+        ClearData();
+        SelectTechnology();
+        FetchCourses();
+        $("#btnaddcourse").click(function () {
+            $("#coursemodal").modal("show");
+        })
+        $("#btnsubmit").click(function () {
+            AddCourse();
+        })
+        $("#btnupdate").click(function () {
+            UpdateCourse();
+        })
+        $("#btndelete").click(function () {
+            DeleteCourse();
+        })
+        $("#btnclose").click(function () {
+            ClearData();
+        })
+    })
+
+    function SelectTechnology() {
+        $.ajax({
+            url: '/api/technology',
+            method: 'get',
+            //contentType: 'application/json',
+            success: function(resp) {
+                $("#ddtechnology").empty()
+                $("#ddtechnology").append("<option selected disabled>Select Technology</option>")
+                $.each(resp, function (i, d) {
+                    $("#ddtechnology").append("<option value=" + d.technology_id + ">" + d.technology_name + "</option>")
+                })
+
+            }
+        })
+    }
+
+    function FetchCourses() {
+        $.ajax({
+            url: '/api/course',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                $("#tbldata").empty();
+                $.each(resp, function (i, d) {
+                    $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.course_name + "</td><td>"+ d.course_code + "</td><td>"+ d.technology_name +
+                        "</td><td> <input type='button' value='Edit' onclick='EditCourse(" + d.course_id + ")'/><span></span><input type='button' value='Delete' onclick='DeleteCourse(" + d.course_id + ")'/></td></tr>");
+                })
+            }
+        })
+    }
+    function EditCourse(id) {
+        $("#coursemodal").modal("show");
+        $.ajax({
+            url: '/api/course/' + id,
+            method: 'get',
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                 $("#txtcourseid").val(resp.course_id);
+                 $("#txtcoursename").val(resp.course_name);
+                 $("#txtcoursecode").val(resp.course_code);
+                 $("#ddtechnology").val(resp.technology_id);
+                 $("#btnupdate").show();
+                 $("#btnsubmit").hide();
+            }
+        })
+    }
+    function UpdateCourse() {
+        var cid = $("#txtcourseid").val();
+        var cn = $("#txtcoursename").val();
+        var cc = $("#txtcoursecode").val();
+        var t = $("#ddtechnology").val();
+        var st = { "CourseId":cid, "CourseName":cn, "CourseCode":cc, "TechnologyId":t};
+        $.ajax({
+            url: '/api/course',
+            method: 'put',
+            data:st,
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp)
+                // alert("Updated Successfully");
+                FetchCourses();
+                ClearData();
+            }
+        })
+    }
+    function DeleteCourse(id) {
+        $.ajax({
+            url: '/api/deletecourse/' + id,
+            method: 'delete',
+            contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchCourses();
+            }
+        })
+    }
+
+    function AddCourse() {
+        var cid = $("#txtcourseid").val();
+        var cn = $("#txtcoursename").val();
+        var cc = $("#txtcoursecode").val();
+        var t = $("#ddtechnology").val();
+        var st = { "CourseId":cid, "CourseName":cn, "CourseCode":cc, "TechnologyId":t};
+        $.ajax({
+            url: '/api/course',
+            method: 'post',
+            data: st,
+            //contentType: 'application/json',
+            success: function (resp) {
+                console.log(resp);
+                FetchCourses();
+                ClearData();
+            }
+        })
+
+    }
+    function ClearData() {
+        $("#txtcourseid").val("");
+        $("#txtcoursename").val("");
+        $("#txtcoursecode").val("");
+        $("#ddtechnology").val("");
+        $("#btnsubmit").show();
+        $("#btnupdate").hide();
+        $("#btndelete").hide();
+        $("#coursemodal").modal("hide");
+
+    }
+</script>
+
+    <input type="button" value="Add Course" class="btn btn-secondary" id="btnaddcourse" />
+    <br />
+    <br />
+
+    <div class="modal fade" id="coursemodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 align="center">Course Form</h4>
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Course Id</label>
+                        <input type="text" id="txtcourseid" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <input type="text" id="txtcoursename" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Course Code</label>
+                        <input type="text" id="txtcoursecode" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <b>Technology</b><select id="ddtechnology" class="form-control">
+                            <option>select Technology</option>
+                        </select><br />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                    <input type="button" value="Update" id="btnupdate" class="btn btn-info" />
+                    <input type="button" value="Delete" id="btndelete" class="btn btn-warning" />
+                    <input type="button" value="Close" id="btnclose" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered;table table-info">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Course Name</th>
+                <th>Course Code</th>
+                <th>Technology</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbldata"></tbody>
+
+    </table>

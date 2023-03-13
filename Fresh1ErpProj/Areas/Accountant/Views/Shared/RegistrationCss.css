@@ -1,0 +1,49 @@
+﻿#tabs {
+    background-color: black;
+    margin: 0px;
+}
+
+#data {
+    font-size: 18px;
+    color: white
+}
+
+body {
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+#table1 {
+    height: 120px;
+    overflow: scroll;
+}
+
+.container-fluid {
+    margin-top: 70px;
+    padding: 50px;
+}
+
+#toggletabs {
+    font-size: 15px;
+}
+
+#btnsubmit {
+    width: 50%;
+    color: white;
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+}
+
+#img {
+    display: none;
+    width: 30px;
+    height: 30px;
+}
+
+#msg {
+    display: none;
+}
+
+#mainpanel {
+    border-radius: 10px;
+}
+
+

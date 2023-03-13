@@ -155,8 +155,10 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Accountant\AccountantAreaRegistration.cs" />
+    <Compile Include="Areas\Accountant\Controllers\RegistrationController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\MasterController.cs" />
+    <Compile Include="Areas\Developer\Controllers\CourseDevController.cs" />
     <Compile Include="Areas\Developer\DeveloperAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -187,16 +189,20 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountantApiController.cs" />
+    <Compile Include="Controllers\BranchApiController.cs" />
     <Compile Include="Controllers\DeveloperApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterApiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Extra\Works.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Accountant\Data\loading-gif.gif" />
+    <Content Include="Areas\Accountant\Views\Shared\RegistrationCss.css" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -240,6 +246,10 @@
     <Content Include="Areas\Admin\Views\Master\State.cshtml" />
     <Content Include="Areas\Admin\Views\Master\Location.cshtml" />
     <Content Include="Areas\Admin\Views\Master\Technology.cshtml" />
+    <Content Include="Areas\Developer\Views\CourseDev\Course.cshtml" />
+    <Content Include="Areas\Developer\Views\CourseDev\CourseFees.cshtml" />
+    <Content Include="Areas\Accountant\Views\Registration\Index.cshtml" />
+    <Content Include="Areas\Accountant\Views\Registration\Registrationform.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -263,10 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Accountant\Controllers\" />
-    <Folder Include="Areas\Accountant\Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Developer\Controllers\" />
     <Folder Include="Areas\Developer\Data\" />
     <Folder Include="Models\" />
   </ItemGroup>

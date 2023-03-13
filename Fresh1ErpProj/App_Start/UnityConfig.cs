@@ -10,6 +10,9 @@ using ServicesOperations.Interface.Developer;
 using ServicesOperations.Implementations.Developer;
 using ServicesOperations.Interface.Accountant;
 using ServicesOperations.Implementations.Accountant;
+using ServicesOperations.Interface.Branch;
+using ServicesOperations.Implementations.Branch;
+
 
 namespace Fresh1ErpProj
 {
@@ -34,6 +37,8 @@ namespace Fresh1ErpProj
             container.RegisterType<ICourseService, CourseService>();
             container.RegisterType<ICourseFeeService, CourseFeeService>();
             container.RegisterType<IDesignationService, DesignationService>();
+            container.RegisterType<IEmployeeDetailsService, EmployeeDetailsService>();
+            container.RegisterType<ICenterDetailsService, CenterDetailsService>();
             
             container.RegisterType(typeof(ITable<>), typeof(Table<>));
             container.RegisterType<IStudentDetailService, StudentDetailService>();

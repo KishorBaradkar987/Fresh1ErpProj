@@ -7,11 +7,14 @@ using System.Web.Http;
 using DatabaseOpworks;
 using ServicesOperations.Interface.Accountant;
 using ServicesOperations.Implementations.Accountant;
+using Fresh1ErpProj.Extra;
 
 namespace Fresh1ErpProj.Controllers
 {
     public class AccountantApiController : ApiController
     {
+        ERP_ProjectDBEntities db = new ERP_ProjectDBEntities();
+
         IStudentDetailService studentservice;
         IStudentQualificationService qualificationservice;
         IRegistrationDetailService registrationservice;
@@ -45,6 +48,14 @@ namespace Fresh1ErpProj.Controllers
         [Route("api/StudentDetails")]
         public string AddDetails(tblstudent_details student)
         {
+            student.student_code = Extra.Works.GenerateNewStudentCode();
+            student.password = Extra.Works.GetRandomPassword();
+            //student.tblregistration-_details.register_code = Extra.Works.GetRegiterCode();
+            //tblstudent_registration_details rc = new tblstudent_registration_details()
+            //{
+            //    registration_code = Extra.Works.GenerateRegistercode()
+            //};
+            
             studentservice.AddStudentDetails(student);
             return "Student Details Added Successfully";
         }
